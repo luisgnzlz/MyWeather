@@ -32,7 +32,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                    return
                }
                
-               print("My location: \(locationValue.latitude)\(locationValue.longitude)")
                let lat = String(locationValue.latitude)
                let longi = String(locationValue.longitude)
                
