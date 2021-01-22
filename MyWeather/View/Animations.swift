@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class testAnimations: ProgramaticView {
+class otherWInfo: ProgramaticView {
     
     var humidityLabel = UILabel()
     var humidityBar = UIProgressView()
@@ -18,21 +18,20 @@ class testAnimations: ProgramaticView {
     override func configure() {
         
         humidityLabel.font = UIFont(name: "Rockwell-BoldItalic", size: 15)
-        humidityLabel.textColor = .darkGray
+        humidityLabel.textColor = .white
         humidityLabel.text = "Humidity: "
         
         humidityBar.progressViewStyle = .bar
-        humidityBar.progressTintColor = .darkGray
+        humidityBar.progressTintColor = .black
         humidityBar.trackTintColor = .white
         humidityBar.layer.cornerRadius = 5
         humidityBar.clipsToBounds = true
         
         humidityNumber.font = UIFont(name: "Rockwell-BoldItalic", size: 12)
-        humidityNumber.textColor = .gray
+        humidityNumber.textColor = .lightGray
     }
     
     override func constrain() {
-        backgroundColor = .gray
         addConstrainedSubviews(humidityLabel,humidityBar,humidityNumber)
         
         NSLayoutConstraint.activate([
