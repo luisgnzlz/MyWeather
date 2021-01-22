@@ -12,10 +12,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     var locationManager = CLLocationManager()
     var apiWeather = WeatherAPI()
-    lazy var contentView : testAnimations = .init()
+    var maintempInfo = MainTempInfo()
+    lazy var contentView : otherWInfo = .init()
+    lazy var mainView = MainWeatherView()
 
     override func loadView() {
-        view = contentView
+        view = mainView
 
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
@@ -30,11 +32,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func didTabButton(progressNumber: Float) {
         print(progressNumber)
+        mainView.mainTemp.mainTemp.text = "50"
+        maintempInfo.cityName.text = "hither"
         let progNum = progressNumber/100
         UIView.animate(withDuration: 4) {
-            self.contentView.humidityBar.setProgress(progNum, animated: true)
+            print("this is a good thing")
+            self.mainView.otherWeatherInfo.humidityBar.setProgress(progNum, animated: true)
         }
-        self.contentView.humidityNumber.text = "\(progressNumber)%"
+        self.mainView.otherWeatherInfo.humidityNumber.text = "\(progressNumber)%"
+        
     }
            
            func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -55,9 +61,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                            }
                            
                            let setWeatherInfo:(WeatherResponse) -> Void = { currentWeather in
-                               print(currentWeather.main.temp)
+                               
                                DispatchQueue.main.async {
+                                print("start")
                                 self.didTabButton(progressNumber: Float(currentWeather.main.temp))
+                                print("end")
                                    //self.displayWeatherInfo(currentWeather: currentWeather)
                                }
                            }
