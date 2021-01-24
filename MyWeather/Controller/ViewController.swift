@@ -30,16 +30,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
            }
     
-    func didTabButton(progressNumber: Float) {
-        print(progressNumber)
-        mainView.mainTemp.mainTemp.text = "50"
-        maintempInfo.cityName.text = "hither"
+    func didTabButton(progressNumber: Float, weather: WeatherResponse) {
+        mainView.mainTemp.mainTemp.text = "\(weather.main.temp)"
+       // mainView.mainTemp.cityName.text = "\()"
+       // mainView.mainTemp.countryName.text = "\()"
+        
         let progNum = progressNumber/100
         UIView.animate(withDuration: 4) {
             print("this is a good thing")
             self.mainView.otherWeatherInfo.humidityBar.setProgress(progNum, animated: true)
         }
-        self.mainView.otherWeatherInfo.humidityNumber.text = "\(progressNumber)%"
+        self.mainView.otherWeatherInfo.humidityNumber.text = "\(weather.main.humidity)%"
         
     }
            
@@ -64,7 +65,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                                
                                DispatchQueue.main.async {
                                 print("start")
-                                self.didTabButton(progressNumber: Float(currentWeather.main.temp))
+                                self.didTabButton(progressNumber: Float(currentWeather.main.temp), weather: currentWeather)
                                 print("end")
                                    //self.displayWeatherInfo(currentWeather: currentWeather)
                                }
