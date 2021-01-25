@@ -18,17 +18,17 @@ class otherWInfo: ProgramaticView {
     override func configure() {
         
         humidityLabel.font = UIFont(name: "Rockwell-BoldItalic", size: 15)
-        humidityLabel.textColor = .white
+        humidityLabel.textColor = .black
         humidityLabel.text = "Humidity: "
         
         humidityBar.progressViewStyle = .bar
-        humidityBar.progressTintColor = .black
-        humidityBar.trackTintColor = .white
+        humidityBar.progressTintColor = .darkGray
+        humidityBar.trackTintColor = .lightGray
         humidityBar.layer.cornerRadius = 5
         humidityBar.clipsToBounds = true
         
         humidityNumber.font = UIFont(name: "Rockwell-BoldItalic", size: 12)
-        humidityNumber.textColor = .lightGray
+        humidityNumber.textColor = .white
     }
     
     override func constrain() {

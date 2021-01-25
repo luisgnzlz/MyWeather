@@ -14,7 +14,7 @@ class MainWeatherView: ProgramaticView {
     var mainTemp = MainTempInfo()
     
     override func constrain() {
-        backgroundColor = .lightGray
+        backgroundColor = .white
         addConstrainedSubviews(mainTemp,otherWeatherInfo)
         
         NSLayoutConstraint.activate([

@@ -10,25 +10,21 @@ import UIKit
 class MainTempInfo: ProgramaticView {
     
     var mainTemp = UILabel()
-    var cityName = UILabel()
-    var countryName = UILabel()
+    var cityAndState = UILabel()
 
     override func configure() {
         mainTemp.font = UIFont(name: "Menlo-Bold", size: 70)
-        mainTemp.textColor = .green
+        mainTemp.textColor = .black
         mainTemp.textAlignment = .center
-        mainTemp.backgroundColor = .blue
         
-        cityName.font = UIFont(name: "Menlo-Bold", size: 20)
-        cityName.textColor = .green
-        cityName.textAlignment = .center
+        cityAndState.font = UIFont(name: "Menlo-Bold", size: 20)
+        cityAndState.textColor = .black
+        cityAndState.textAlignment = .center
         
-        countryName.font = UIFont(name: "Menlo-Bold", size: 20)
-        countryName.textAlignment = .center
     }
     
     override func constrain() {
-        addConstrainedSubviews(mainTemp,cityName,countryName)
+        addConstrainedSubviews(mainTemp,cityAndState)
         
         NSLayoutConstraint.activate([
             mainTemp.topAnchor.constraint(equalTo: topAnchor),
@@ -36,18 +32,10 @@ class MainTempInfo: ProgramaticView {
             mainTemp.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5),
             mainTemp.centerXAnchor.constraint(equalTo: centerXAnchor),
             
+            cityAndState.topAnchor.constraint(equalTo: mainTemp.bottomAnchor),
+            cityAndState.centerXAnchor.constraint(equalTo: centerXAnchor),
+            cityAndState.heightAnchor.constraint(equalToConstant: 25),
             
-            cityName.topAnchor.constraint(equalTo: mainTemp.bottomAnchor),
-            cityName.trailingAnchor.constraint(equalTo: countryName.leadingAnchor),
-            cityName.heightAnchor.constraint(equalToConstant: 30),
-            
-            
-            countryName.topAnchor.constraint(equalTo: mainTemp.bottomAnchor),
-            countryName.centerXAnchor.constraint(equalTo: centerXAnchor),
-            countryName.widthAnchor.constraint(equalToConstant: 50),
-            countryName.heightAnchor.constraint(equalToConstant: 30),
-            
-                                        
     ])
     }
 
