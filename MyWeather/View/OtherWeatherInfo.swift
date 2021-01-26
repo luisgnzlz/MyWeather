@@ -14,6 +14,15 @@ class otherWInfo: ProgramaticView {
     var humidityLabel = UILabel()
     var humidityBar = UIProgressView()
     var humidityNumber = UILabel()
+    var lowTemp = UILabel()
+    var highTemp = UILabel()
+    var windSpeed = UILabel()
+    var windDegree = UILabel()
+    var weatherDescrip = UILabel()
+    var sunrise = UILabel()
+    var sunset = UILabel()
+    
+    
     
     override func configure() {
         
