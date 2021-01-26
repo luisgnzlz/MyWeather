@@ -23,11 +23,24 @@ class otherWInfo: ProgramaticView {
     var sunset = UILabel()
     
     
-    
     override func configure() {
         
-        humidityLabel.font = UIFont(name: "Rockwell-BoldItalic", size: 15)
-        humidityLabel.textColor = .black
+        weatherInfoTextConfig(lowTemp, highTemp, windSpeed, windDegree, weatherDescrip, humidityLabel, sunrise, sunset)
+        
+        lowTemp.text = "Low: "
+
+        highTemp.text = "High: "
+
+        windSpeed.text = "Wind Speed: "
+
+        windDegree.text = "Wind Degree: "
+
+        weatherDescrip.text = "Description: "
+        
+        sunrise.text = "Sunrise: "
+        
+        sunset.text = "Sunset: "
+
         humidityLabel.text = "Humidity: "
         
         humidityBar.progressViewStyle = .bar

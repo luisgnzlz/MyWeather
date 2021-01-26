@@ -19,4 +19,11 @@ extension UIView {
             view in addConstrainedSubview(view)
         }
     }
+    
+    func weatherInfoTextConfig(_ views: UILabel...) {
+        views.forEach { view in
+            view.font = UIFont(name: "Rockwell-BoldItalic", size: 15)
+            view.textColor = .black
+        }
+    }
 }
