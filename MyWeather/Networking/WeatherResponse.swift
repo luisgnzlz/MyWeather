@@ -14,6 +14,6 @@ struct WeatherResponse: Codable {
     }
     var main: Weather
     var wind: Wind
-    var weather: [WeatherDiscription]
+    var weather: [WeatherDiscriptions]
     var time: TimeWeather
 }

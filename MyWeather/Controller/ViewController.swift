@@ -30,18 +30,50 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
            }
     
-    func didTabButton(progressNumber: Float, weather: WeatherResponse, cityName: String, stateName: String) {
-        let currentTemp = Int(weather.main.temp.rounded())
+    func didTabButton(weathers: WeatherResponse, cityName: String, stateName: String) {
+        let progressNumber = Float(weathers.main.humidity)
+        let currentTemp = Int(weathers.main.temp.rounded())
+        let lowerTemp = Int(weathers.main.lowTemp.rounded())
+        let higherTemp = Int(weathers.main.highTemp.rounded())
+        let sunset = weathers.time.sunset
+        let sunsetTime = sunsetSunriseTimeSet(convertTime: Double(sunset))
+        let sunrise = weathers.time.sunrise
+        let sunriseTime = sunsetSunriseTimeSet(convertTime: Double(sunrise))
+        
         mainView.mainTemp.mainTemp.text = "\(currentTemp)°"
-        mainView.mainTemp.cityAndState.text = "\(cityName),\(stateName)"
+        mainView.mainTemp.cityAndState.text = "\(cityName)"
         
         let progNum = progressNumber/100
         UIView.animate(withDuration: 4) {
             self.mainView.otherWeatherInfo.humidityBar.setProgress(progNum, animated: true)
         }
-        self.mainView.otherWeatherInfo.humidityNumber.text = "\(weather.main.humidity)%"
+        self.mainView.otherWeatherInfo.lowTemp.text = "Low: \(lowerTemp)°"
+
+        self.mainView.otherWeatherInfo.highTemp.text = "High: \(higherTemp)°"
+
+        self.mainView.otherWeatherInfo.windSpeed.text = "Wind Speed: "
+
+        self.mainView.otherWeatherInfo.windDegree.text = "Wind Degree: "
+
+        self.mainView.otherWeatherInfo.weatherDescrip.text = "Description: \(weathers.weather[0].description.capitalized)"
+        
+        self.mainView.otherWeatherInfo.sunrise.text = "Sunrise: \(sunriseTime)am"
+        
+        self.mainView.otherWeatherInfo.sunset.text = "Set: \(sunsetTime)pm"
+        
+        self.mainView.otherWeatherInfo.humidityNumber.text = "\(weathers.main.humidity)%"
         
     }
+    
+    func sunsetSunriseTimeSet(convertTime: Double) -> String {
+            let sunsetDate = Date(timeIntervalSince1970: Double(convertTime))
+            let sunsetDateFormatter = DateFormatter()
+            sunsetDateFormatter.timeZone = TimeZone(abbreviation: "UTC/GMT")
+            sunsetDateFormatter.locale = NSLocale.current
+            sunsetDateFormatter.dateFormat = "hh:mm"
+            let sunsetData = sunsetDateFormatter.string(from: sunsetDate)
+            return sunsetData
+        }
            
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locationValue : CLLocationCoordinate2D = manager.location?.coordinate else {
@@ -64,7 +96,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             let setWeatherInfo:(WeatherResponse) -> Void = { currentWeather in
                                
     DispatchQueue.main.async {
-            self.didTabButton(progressNumber: Float(currentWeather.main.temp), weather: currentWeather, cityName: cityname, stateName: statename)
+            self.didTabButton(weathers: currentWeather, cityName: cityname, stateName: statename)
     }
         }
                     self.apiWeather.weatherInfo(longitude: longi, latitude: lat, onCompletion: setWeatherInfo)

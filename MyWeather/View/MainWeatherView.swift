@@ -14,13 +14,13 @@ class MainWeatherView: ProgramaticView {
     var mainTemp = MainTempInfo()
     
     override func constrain() {
-        backgroundColor = .white
+        backgroundColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
         addConstrainedSubviews(mainTemp,otherWeatherInfo)
         
         NSLayoutConstraint.activate([
                                         
             mainTemp.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            mainTemp.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5),
+            mainTemp.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1/3),
             mainTemp.widthAnchor.constraint(equalTo: widthAnchor),
             
             otherWeatherInfo.topAnchor.constraint(equalTo: mainTemp.bottomAnchor),

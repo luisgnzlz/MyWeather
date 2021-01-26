@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WeatherDiscription: Codable {
+struct WeatherDiscriptions: Codable {
     enum CodingKeys: String, CodingKey {
         case id, description, icon
         case shortDescription = "main"
