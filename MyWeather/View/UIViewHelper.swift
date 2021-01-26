@@ -22,8 +22,14 @@ extension UIView {
     
     func weatherInfoTextConfig(_ views: UILabel...) {
         views.forEach { view in
-            view.font = UIFont(name: "Rockwell-BoldItalic", size: 15)
-            view.textColor = .black
+            view.font = UIFont(name: "Rockwell-BoldItalic", size: 20)
+            view.textColor = .white
+        }
+    }
+    
+    func lineSepHelp(_ views: UIView...) {
+        views.forEach { view in
+            view.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.4)
         }
     }
 }

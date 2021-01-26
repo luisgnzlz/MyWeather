@@ -14,11 +14,11 @@ class MainTempInfo: ProgramaticView {
 
     override func configure() {
         mainTemp.font = UIFont(name: "Menlo-Bold", size: 70)
-        mainTemp.textColor = .black
+        mainTemp.textColor = .white
         mainTemp.textAlignment = .center
         
         cityAndState.font = UIFont(name: "Menlo-Bold", size: 20)
-        cityAndState.textColor = .black
+        cityAndState.textColor = .white
         cityAndState.textAlignment = .center
         
     }
@@ -30,7 +30,7 @@ class MainTempInfo: ProgramaticView {
             mainTemp.topAnchor.constraint(equalTo: topAnchor),
             mainTemp.widthAnchor.constraint(equalTo: widthAnchor),
             mainTemp.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5),
-            mainTemp.centerXAnchor.constraint(equalTo: centerXAnchor),
+            mainTemp.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 15),
             
             cityAndState.topAnchor.constraint(equalTo: mainTemp.bottomAnchor),
             cityAndState.centerXAnchor.constraint(equalTo: centerXAnchor),
