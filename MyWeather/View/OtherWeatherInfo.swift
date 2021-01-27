@@ -24,6 +24,8 @@ class otherWInfo: ProgramaticView {
     var weatherDescrip = UILabel()
     var sunrise = UILabel()
     var sunset = UILabel()
+    var feelLikeLabel = UILabel()
+    var feelsLike = UILabel()
     private let lineSep1 = UIView()
     private let lineSep2 = UIView()
     private let lineSep3 = UIView()
@@ -34,19 +36,27 @@ class otherWInfo: ProgramaticView {
     
     override func configure() {
         
-        weatherInfoTextConfig(lowTemp, highTemp, windInfo, weatherDescrip, humidityLabel, sunrise, sunset)
+        weatherInfoTextConfig(lowTemp, highTemp, windInfo, weatherDescrip, humidityLabel, sunrise, sunset, feelsLike)
         lineSepHelp(lineSep1, lineSep2, lineSep3, lineSep4, lineSep5, lineSep6)
-        weatherInfoTextConfigLabel(lowTempLabel, highTempLabel, windLabel, weatherDesLabel)
+        weatherInfoTextConfigLabel(lowTempLabel, highTempLabel, windLabel, weatherDesLabel, feelLikeLabel)
         
         lowTempLabel.text = "Low"
-        lowTempLabel.textAlignment = .center
         
         lowTemp.textAlignment = .center
         
         highTempLabel.text = "High"
-        highTempLabel.textAlignment = .center
         
         highTemp.textAlignment = .center
+        
+        windLabel.text = "Wind"
+        
+        windInfo.textAlignment = .center
+        
+        feelLikeLabel.text = "Feels Like"
+        
+        feelsLike.textAlignment = .center
+        
+        weatherDesLabel.text = "Describtion"
         
         humidityLabel.text = "Humidity: "
         
@@ -61,7 +71,7 @@ class otherWInfo: ProgramaticView {
     }
     
     override func constrain() {
-        addConstrainedSubviews(lowTempLabel, highTempLabel, lowTemp, lineSep1, highTemp, windSpeed, lineSep2, lineSep3, lineSep4, lineSep5, lineSep6, windDegree, weatherDescrip, sunrise, sunset, humidityLabel, humidityBar, humidityNumber)
+        addConstrainedSubviews(feelLikeLabel, feelsLike, lowTempLabel, highTempLabel, lowTemp, lineSep1, highTemp, windLabel, windInfo, lineSep2, lineSep3, lineSep4, lineSep5, lineSep6, weatherDescrip, sunrise, sunset, weatherDesLabel, humidityLabel, humidityBar, humidityNumber)
         
         NSLayoutConstraint.activate([
             
@@ -115,27 +125,37 @@ class otherWInfo: ProgramaticView {
             lineSep3.heightAnchor.constraint(equalToConstant: 1),
             lineSep3.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            windSpeed.topAnchor.constraint(equalTo: lineSep3.bottomAnchor, constant: 20),
-            windSpeed.heightAnchor.constraint(equalToConstant: 30),
-            windSpeed.widthAnchor.constraint(equalTo: widthAnchor),
-            windSpeed.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            windLabel.topAnchor.constraint(equalTo: lineSep3.bottomAnchor, constant: 20),
+            windLabel.heightAnchor.constraint(equalToConstant: 30),
+            windLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            windLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             
-            lineSep4.topAnchor.constraint(equalTo: windSpeed.bottomAnchor, constant: 20),
+            windInfo.topAnchor.constraint(equalTo: windLabel.bottomAnchor, constant: 5),
+            windInfo.heightAnchor.constraint(equalToConstant: 30),
+            windInfo.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            windInfo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
+            
+            feelLikeLabel.topAnchor.constraint(equalTo: lineSep3.bottomAnchor, constant: 20),
+            feelLikeLabel.heightAnchor.constraint(equalToConstant: 30),
+            feelLikeLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            feelLikeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            
+            feelsLike.topAnchor.constraint(equalTo: feelLikeLabel.bottomAnchor, constant: 5),
+            feelsLike.heightAnchor.constraint(equalToConstant: 30),
+            feelsLike.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            feelsLike.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            
+            lineSep4.topAnchor.constraint(equalTo: windInfo.bottomAnchor, constant: 20),
             lineSep4.widthAnchor.constraint(equalTo: widthAnchor, constant: -30),
             lineSep4.heightAnchor.constraint(equalToConstant: 1),
             lineSep4.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            windDegree.topAnchor.constraint(equalTo: lineSep4.bottomAnchor, constant: 20),
-            windDegree.heightAnchor.constraint(equalToConstant: 30),
-            windDegree.widthAnchor.constraint(equalTo: widthAnchor),
-            windDegree.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            weatherDesLabel.topAnchor.constraint(equalTo: lineSep4.bottomAnchor, constant: 20),
+            weatherDesLabel.heightAnchor.constraint(equalToConstant: 30),
+            weatherDesLabel.widthAnchor.constraint(equalTo: widthAnchor),
+            weatherDesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             
-            lineSep5.topAnchor.constraint(equalTo: windDegree.bottomAnchor, constant: 20),
-            lineSep5.widthAnchor.constraint(equalTo: widthAnchor, constant: -30),
-            lineSep5.heightAnchor.constraint(equalToConstant: 1),
-            lineSep5.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            weatherDescrip.topAnchor.constraint(equalTo: lineSep5.bottomAnchor, constant: 20),
+            weatherDescrip.topAnchor.constraint(equalTo: weatherDesLabel.bottomAnchor, constant: 5),
             weatherDescrip.heightAnchor.constraint(equalToConstant: 30),
             weatherDescrip.widthAnchor.constraint(equalTo: widthAnchor),
             weatherDescrip.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),

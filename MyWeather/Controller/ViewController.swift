@@ -35,6 +35,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let currentTemp = Int(weathers.main.temp.rounded())
         let lowerTemp = Int(weathers.main.lowTemp.rounded())
         let higherTemp = Int(weathers.main.highTemp.rounded())
+        let feelTemp = Int(weathers.main.feels_like.rounded())
+        let windInfo = Int(weathers.wind.speed.rounded())
         let sunset = weathers.time.sunset
         let sunsetTime = sunsetSunriseTimeSet(convertTime: Double(sunset))
         let sunrise = weathers.time.sunrise
@@ -51,15 +53,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
         self.mainView.otherWeatherInfo.highTemp.text = "\(higherTemp)°"
 
-        self.mainView.otherWeatherInfo.windInfo.text = "Wind Speed: "
-
-        self.mainView.otherWeatherInfo.windDegree.text = "Wind Degree: "
-
-        self.mainView.otherWeatherInfo.weatherDescrip.text = "Description: \(weathers.weather[0].description.capitalized)"
+        self.mainView.otherWeatherInfo.windInfo.text = "\(weathers.wind.degree) \(windInfo) mph"
         
-        self.mainView.otherWeatherInfo.sunrise.text = "Sunrise: \(sunriseTime)am"
+        self.mainView.otherWeatherInfo.feelsLike.text = "\(feelTemp)°"
+
+        self.mainView.otherWeatherInfo.weatherDescrip.text = "\(weathers.weather[0].description.capitalized)"
         
-        self.mainView.otherWeatherInfo.sunset.text = "Set: \(sunsetTime)pm"
+        self.mainView.otherWeatherInfo.sunrise.text = "\(sunriseTime)am"
+        
+        self.mainView.otherWeatherInfo.sunset.text = "\(sunsetTime)pm"
         
         self.mainView.otherWeatherInfo.humidityNumber.text = "\(weathers.main.humidity)%"
         
