@@ -15,9 +15,12 @@ class otherWInfo: ProgramaticView {
     var humidityBar = UIProgressView()
     var humidityNumber = UILabel()
     var lowTemp = UILabel()
+    let lowTempLabel = UILabel()
     var highTemp = UILabel()
-    var windSpeed = UILabel()
-    var windDegree = UILabel()
+    let highTempLabel = UILabel()
+    let windLabel = UILabel()
+    var windInfo = UILabel()
+    let weatherDesLabel = UILabel()
     var weatherDescrip = UILabel()
     var sunrise = UILabel()
     var sunset = UILabel()
@@ -31,9 +34,20 @@ class otherWInfo: ProgramaticView {
     
     override func configure() {
         
-        weatherInfoTextConfig(lowTemp, highTemp, windSpeed, windDegree, weatherDescrip, humidityLabel, sunrise, sunset)
-        lineSepHelp(lineSep1, lineSep2, lineSep3, lineSep4, lineSep5, lineSep6
-        )
+        weatherInfoTextConfig(lowTemp, highTemp, windInfo, weatherDescrip, humidityLabel, sunrise, sunset)
+        lineSepHelp(lineSep1, lineSep2, lineSep3, lineSep4, lineSep5, lineSep6)
+        weatherInfoTextConfigLabel(lowTempLabel, highTempLabel, windLabel, weatherDesLabel)
+        
+        lowTempLabel.text = "Low"
+        lowTempLabel.textAlignment = .center
+        
+        lowTemp.textAlignment = .center
+        
+        highTempLabel.text = "High"
+        highTempLabel.textAlignment = .center
+        
+        highTemp.textAlignment = .center
+        
         humidityLabel.text = "Humidity: "
         
         humidityBar.progressViewStyle = .bar
@@ -47,7 +61,7 @@ class otherWInfo: ProgramaticView {
     }
     
     override func constrain() {
-        addConstrainedSubviews(lowTemp, lineSep1, highTemp, windSpeed, lineSep2, lineSep3, lineSep4, lineSep5, lineSep6, windDegree, weatherDescrip, sunrise, sunset, humidityLabel, humidityBar, humidityNumber)
+        addConstrainedSubviews(lowTempLabel, highTempLabel, lowTemp, lineSep1, highTemp, windSpeed, lineSep2, lineSep3, lineSep4, lineSep5, lineSep6, windDegree, weatherDescrip, sunrise, sunset, humidityLabel, humidityBar, humidityNumber)
         
         NSLayoutConstraint.activate([
             
@@ -56,15 +70,25 @@ class otherWInfo: ProgramaticView {
             lineSep1.heightAnchor.constraint(equalToConstant: 1),
             lineSep1.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            lowTemp.topAnchor.constraint(equalTo: lineSep1.bottomAnchor, constant: 20),
+            lowTempLabel.topAnchor.constraint(equalTo: lineSep1.bottomAnchor, constant: 20),
+            lowTempLabel.heightAnchor.constraint(equalToConstant: 30),
+            lowTempLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            lowTempLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            
+            lowTemp.topAnchor.constraint(equalTo: lowTempLabel.bottomAnchor, constant: 5),
             lowTemp.heightAnchor.constraint(equalToConstant: 30),
             lowTemp.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
-            lowTemp.trailingAnchor.constraint(equalTo: trailingAnchor),
+            lowTemp.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
             
-            highTemp.topAnchor.constraint(equalTo: lineSep1.bottomAnchor, constant: 20),
+            highTempLabel.topAnchor.constraint(equalTo: lineSep1.bottomAnchor, constant: 20),
+            highTempLabel.heightAnchor.constraint(equalToConstant: 30),
+            highTempLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            highTempLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
+            
+            highTemp.topAnchor.constraint(equalTo: highTempLabel.bottomAnchor, constant: 5),
             highTemp.heightAnchor.constraint(equalToConstant: 30),
             highTemp.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
-            highTemp.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            highTemp.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             
             lineSep2.topAnchor.constraint(equalTo: highTemp.bottomAnchor, constant: 20),
             lineSep2.widthAnchor.constraint(equalTo: widthAnchor, constant: -30),

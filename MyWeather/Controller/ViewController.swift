@@ -47,11 +47,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         UIView.animate(withDuration: 4) {
             self.mainView.otherWeatherInfo.humidityBar.setProgress(progNum, animated: true)
         }
-        self.mainView.otherWeatherInfo.lowTemp.text = "Low: \(lowerTemp)°"
+        self.mainView.otherWeatherInfo.lowTemp.text = "\(lowerTemp)°"
 
-        self.mainView.otherWeatherInfo.highTemp.text = "High: \(higherTemp)°"
+        self.mainView.otherWeatherInfo.highTemp.text = "\(higherTemp)°"
 
-        self.mainView.otherWeatherInfo.windSpeed.text = "Wind Speed: "
+        self.mainView.otherWeatherInfo.windInfo.text = "Wind Speed: "
 
         self.mainView.otherWeatherInfo.windDegree.text = "Wind Degree: "
 
