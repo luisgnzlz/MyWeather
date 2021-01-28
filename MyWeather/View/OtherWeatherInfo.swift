@@ -12,7 +12,7 @@ import UIKit
 class otherWInfo: ProgramaticView {
     
     var humidityLabel = UILabel()
-    var humidityBar = UIProgressView()
+    var humidityBar = UISlider()
     var humidityNumber = UILabel()
     let windLabel = UILabel()
     var windInfo = UILabel()
@@ -30,6 +30,7 @@ class otherWInfo: ProgramaticView {
     private let lineSep4 = UIView()
     private let lineSep5 = UIView()
     private let lineSep6 = UIView()
+    private let imageWater = UIImage(named: "waterIcon")
     
     
     override func configure() {
@@ -37,6 +38,7 @@ class otherWInfo: ProgramaticView {
         weatherInfoTextConfig(windInfo, sunrise, sunset, feelsLike)
         lineSepHelp(lineSep1, lineSep2, lineSep3, lineSep4, lineSep5, lineSep6)
         weatherInfoTextConfigLabel(humidityLabel, windLabel, weatherDesLabel, feelLikeLabel, sunriseLabel, sunsetLabel)
+        
         
         windLabel.text = "Wind"
         
@@ -53,13 +55,15 @@ class otherWInfo: ProgramaticView {
         weatherDescrip.textColor = .white
         weatherDescrip.font = UIFont(name: fontNameLabel, size: 18)
         
-        humidityLabel.text = "Humidity"
+        humidityLabel.text = "Humidity: "
         
-        humidityBar.progressViewStyle = .bar
-        humidityBar.progressTintColor = .darkGray
-        humidityBar.trackTintColor = .lightGray
-        humidityBar.layer.cornerRadius = 5
-        humidityBar.clipsToBounds = true
+        humidityBar.minimumValue = 0
+        humidityBar.maximumValue = 1
+        humidityBar.minimumTrackTintColor = UIColor(red: 0.241, green: 0.601, blue: 0.719, alpha: 1.0)
+        humidityBar.maximumTrackTintColor = .white
+        humidityBar.thumbTintColor = .black
+        humidityBar.setThumbImage(imageWater, for: .normal)
+        humidityBar.isUserInteractionEnabled = false
         
         humidityNumber.font = UIFont(name: fontNameLabel, size: 20)
         humidityNumber.textColor = .white
@@ -86,8 +90,7 @@ class otherWInfo: ProgramaticView {
             weatherDescrip.topAnchor.constraint(equalTo: lineSep1.bottomAnchor, constant: 5),
             weatherDescrip.heightAnchor.constraint(equalToConstant: 60),
             weatherDescrip.centerXAnchor.constraint(equalTo: centerXAnchor),
-            weatherDescrip.widthAnchor.constraint(equalTo: widthAnchor, constant: -30),
-            weatherDescrip.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            weatherDescrip.widthAnchor.constraint(equalTo: widthAnchor, constant: -60),
             
             lineSep2.topAnchor.constraint(equalTo: weatherDescrip.bottomAnchor, constant: 10),
             lineSep2.widthAnchor.constraint(equalTo: widthAnchor, constant: -30),
@@ -96,18 +99,16 @@ class otherWInfo: ProgramaticView {
             
             humidityLabel.topAnchor.constraint(equalTo: lineSep2.bottomAnchor, constant: 5),
             humidityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            humidityLabel.widthAnchor.constraint(equalToConstant: 150),
             humidityLabel.heightAnchor.constraint(equalToConstant: 30),
             
+            humidityNumber.topAnchor.constraint(equalTo: lineSep2.bottomAnchor, constant: 5),
+            humidityNumber.leadingAnchor.constraint(equalTo: humidityLabel.trailingAnchor),
+            humidityNumber.heightAnchor.constraint(equalToConstant: 25),
+            
             humidityBar.topAnchor.constraint(equalTo: humidityLabel.bottomAnchor, constant: 5),
-            humidityBar.widthAnchor.constraint(equalTo: widthAnchor, constant: -30),
+            humidityBar.widthAnchor.constraint(equalTo: widthAnchor, constant: -60),
             humidityBar.centerXAnchor.constraint(equalTo: centerXAnchor),
             humidityBar.heightAnchor.constraint(equalToConstant: 30),
-            
-            humidityNumber.topAnchor.constraint(equalTo: humidityBar.topAnchor),
-            humidityNumber.centerXAnchor.constraint(equalTo: humidityBar.centerXAnchor, constant: 5),
-            humidityNumber.widthAnchor.constraint(equalToConstant: 50),
-            humidityNumber.heightAnchor.constraint(equalToConstant: 25),
             
             lineSep3.topAnchor.constraint(equalTo: humidityBar.bottomAnchor, constant: 10),
             lineSep3.widthAnchor.constraint(equalTo: widthAnchor, constant: -30),
