@@ -41,23 +41,26 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let sunsetTime = sunsetSunriseTimeSet(convertTime: Double(sunset))
         let sunrise = weathers.time.sunrise
         let sunriseTime = sunsetSunriseTimeSet(convertTime: Double(sunrise))
+        let descrip = "\(weathers.weather[0].description.capitalized)"
+        let infoShort = "\(weathers.weather[0].shortDescription)"
         
         mainView.mainTemp.mainTemp.text = "\(currentTemp)°"
+        mainView.mainTemp.infoLabel.text = "\(infoShort)"
         mainView.mainTemp.cityAndState.text = "\(cityName)"
         
         let progNum = progressNumber/100
         UIView.animate(withDuration: 4) {
             self.mainView.otherWeatherInfo.humidityBar.setProgress(progNum, animated: true)
         }
-        self.mainView.otherWeatherInfo.lowTemp.text = "\(lowerTemp)°"
+        self.mainView.mainTemp.lowTemp.text = "\(lowerTemp)°"
 
-        self.mainView.otherWeatherInfo.highTemp.text = "\(higherTemp)°"
+        self.mainView.mainTemp.highTemp.text = "\(higherTemp)°"
 
         self.mainView.otherWeatherInfo.windInfo.text = "\(weathers.wind.degree) \(windInfo) mph"
         
         self.mainView.otherWeatherInfo.feelsLike.text = "\(feelTemp)°"
 
-        self.mainView.otherWeatherInfo.weatherDescrip.text = "\(weathers.weather[0].description.capitalized)"
+        self.mainView.otherWeatherInfo.weatherDescrip.text = "\(descrip) today. Forcast shows a high of \(higherTemp) and low of \(lowerTemp)"
         
         self.mainView.otherWeatherInfo.sunrise.text = "\(sunriseTime)am"
         

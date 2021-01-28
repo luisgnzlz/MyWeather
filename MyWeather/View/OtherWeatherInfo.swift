@@ -14,14 +14,12 @@ class otherWInfo: ProgramaticView {
     var humidityLabel = UILabel()
     var humidityBar = UIProgressView()
     var humidityNumber = UILabel()
-    var lowTemp = UILabel()
-    let lowTempLabel = UILabel()
-    var highTemp = UILabel()
-    let highTempLabel = UILabel()
     let windLabel = UILabel()
     var windInfo = UILabel()
     let weatherDesLabel = UILabel()
     var weatherDescrip = UILabel()
+    let sunriseLabel = UILabel()
+    let sunsetLabel = UILabel()
     var sunrise = UILabel()
     var sunset = UILabel()
     var feelLikeLabel = UILabel()
@@ -36,17 +34,9 @@ class otherWInfo: ProgramaticView {
     
     override func configure() {
         
-        weatherInfoTextConfig(lowTemp, highTemp, windInfo, weatherDescrip, humidityLabel, sunrise, sunset, feelsLike)
+        weatherInfoTextConfig(windInfo, sunrise, sunset, feelsLike)
         lineSepHelp(lineSep1, lineSep2, lineSep3, lineSep4, lineSep5, lineSep6)
-        weatherInfoTextConfigLabel(lowTempLabel, highTempLabel, windLabel, weatherDesLabel, feelLikeLabel)
-        
-        lowTempLabel.text = "Low"
-        
-        lowTemp.textAlignment = .center
-        
-        highTempLabel.text = "High"
-        
-        highTemp.textAlignment = .center
+        weatherInfoTextConfigLabel(humidityLabel, windLabel, weatherDesLabel, feelLikeLabel, sunriseLabel, sunsetLabel)
         
         windLabel.text = "Wind"
         
@@ -58,7 +48,12 @@ class otherWInfo: ProgramaticView {
         
         weatherDesLabel.text = "Describtion"
         
-        humidityLabel.text = "Humidity: "
+        weatherDescrip.lineBreakMode = .byWordWrapping
+        weatherDescrip.numberOfLines = 2
+        weatherDescrip.textColor = .white
+        weatherDescrip.font = UIFont(name: fontNameLabel, size: 18)
+        
+        humidityLabel.text = "Humidity"
         
         humidityBar.progressViewStyle = .bar
         humidityBar.progressTintColor = .darkGray
@@ -66,12 +61,20 @@ class otherWInfo: ProgramaticView {
         humidityBar.layer.cornerRadius = 5
         humidityBar.clipsToBounds = true
         
-        humidityNumber.font = UIFont(name: "Rockwell-BoldItalic", size: 12)
+        humidityNumber.font = UIFont(name: fontNameLabel, size: 20)
         humidityNumber.textColor = .white
+        
+        sunriseLabel.text = "Sunrise"
+        
+        sunrise.textAlignment = .center
+        
+        sunsetLabel.text = "Sunset"
+        
+        sunset.textAlignment = .center
     }
     
     override func constrain() {
-        addConstrainedSubviews(feelLikeLabel, feelsLike, lowTempLabel, highTempLabel, lowTemp, lineSep1, highTemp, windLabel, windInfo, lineSep2, lineSep3, lineSep4, lineSep5, lineSep6, weatherDescrip, sunrise, sunset, weatherDesLabel, humidityLabel, humidityBar, humidityNumber)
+        addConstrainedSubviews(feelLikeLabel, feelsLike, lineSep1, windLabel, windInfo, sunriseLabel, sunsetLabel, lineSep2, lineSep3, lineSep4, lineSep5, lineSep6, weatherDescrip, sunrise, sunset, humidityLabel, humidityBar, humidityNumber)
         
         NSLayoutConstraint.activate([
             
@@ -80,52 +83,38 @@ class otherWInfo: ProgramaticView {
             lineSep1.heightAnchor.constraint(equalToConstant: 1),
             lineSep1.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            lowTempLabel.topAnchor.constraint(equalTo: lineSep1.bottomAnchor, constant: 20),
-            lowTempLabel.heightAnchor.constraint(equalToConstant: 30),
-            lowTempLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
-            lowTempLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            weatherDescrip.topAnchor.constraint(equalTo: lineSep1.bottomAnchor, constant: 5),
+            weatherDescrip.heightAnchor.constraint(equalToConstant: 60),
+            weatherDescrip.centerXAnchor.constraint(equalTo: centerXAnchor),
+            weatherDescrip.widthAnchor.constraint(equalTo: widthAnchor, constant: -30),
+            weatherDescrip.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             
-            lowTemp.topAnchor.constraint(equalTo: lowTempLabel.bottomAnchor, constant: 5),
-            lowTemp.heightAnchor.constraint(equalToConstant: 30),
-            lowTemp.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
-            lowTemp.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
-            
-            highTempLabel.topAnchor.constraint(equalTo: lineSep1.bottomAnchor, constant: 20),
-            highTempLabel.heightAnchor.constraint(equalToConstant: 30),
-            highTempLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
-            highTempLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-            
-            highTemp.topAnchor.constraint(equalTo: highTempLabel.bottomAnchor, constant: 5),
-            highTemp.heightAnchor.constraint(equalToConstant: 30),
-            highTemp.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
-            highTemp.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-            
-            lineSep2.topAnchor.constraint(equalTo: highTemp.bottomAnchor, constant: 20),
+            lineSep2.topAnchor.constraint(equalTo: weatherDescrip.bottomAnchor, constant: 10),
             lineSep2.widthAnchor.constraint(equalTo: widthAnchor, constant: -30),
             lineSep2.heightAnchor.constraint(equalToConstant: 1),
             lineSep2.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            humidityLabel.topAnchor.constraint(equalTo: lineSep2.bottomAnchor, constant: 20),
+            humidityLabel.topAnchor.constraint(equalTo: lineSep2.bottomAnchor, constant: 5),
             humidityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             humidityLabel.widthAnchor.constraint(equalToConstant: 150),
             humidityLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            humidityBar.topAnchor.constraint(equalTo: lineSep2.bottomAnchor, constant: 20),
-            humidityBar.widthAnchor.constraint(equalToConstant: 200),
-            humidityBar.leadingAnchor.constraint(equalTo: humidityLabel.trailingAnchor),
-            humidityBar.heightAnchor.constraint(equalToConstant: 20),
+            humidityBar.topAnchor.constraint(equalTo: humidityLabel.bottomAnchor, constant: 5),
+            humidityBar.widthAnchor.constraint(equalTo: widthAnchor, constant: -30),
+            humidityBar.centerXAnchor.constraint(equalTo: centerXAnchor),
+            humidityBar.heightAnchor.constraint(equalToConstant: 30),
             
-            humidityNumber.topAnchor.constraint(equalTo: humidityBar.topAnchor, constant: 3),
-            humidityNumber.centerXAnchor.constraint(equalTo: humidityBar.centerXAnchor),
+            humidityNumber.topAnchor.constraint(equalTo: humidityBar.topAnchor),
+            humidityNumber.centerXAnchor.constraint(equalTo: humidityBar.centerXAnchor, constant: 5),
             humidityNumber.widthAnchor.constraint(equalToConstant: 50),
-            humidityNumber.heightAnchor.constraint(equalToConstant: 15),
+            humidityNumber.heightAnchor.constraint(equalToConstant: 25),
             
-            lineSep3.topAnchor.constraint(equalTo: humidityBar.bottomAnchor, constant: 20),
+            lineSep3.topAnchor.constraint(equalTo: humidityBar.bottomAnchor, constant: 10),
             lineSep3.widthAnchor.constraint(equalTo: widthAnchor, constant: -30),
             lineSep3.heightAnchor.constraint(equalToConstant: 1),
             lineSep3.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            windLabel.topAnchor.constraint(equalTo: lineSep3.bottomAnchor, constant: 20),
+            windLabel.topAnchor.constraint(equalTo: lineSep3.bottomAnchor, constant: 5),
             windLabel.heightAnchor.constraint(equalToConstant: 30),
             windLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
             windLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
@@ -135,7 +124,7 @@ class otherWInfo: ProgramaticView {
             windInfo.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
             windInfo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             
-            feelLikeLabel.topAnchor.constraint(equalTo: lineSep3.bottomAnchor, constant: 20),
+            feelLikeLabel.topAnchor.constraint(equalTo: lineSep3.bottomAnchor, constant: 5),
             feelLikeLabel.heightAnchor.constraint(equalToConstant: 30),
             feelLikeLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
             feelLikeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
@@ -145,35 +134,30 @@ class otherWInfo: ProgramaticView {
             feelsLike.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
             feelsLike.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
             
-            lineSep4.topAnchor.constraint(equalTo: windInfo.bottomAnchor, constant: 20),
-            lineSep4.widthAnchor.constraint(equalTo: widthAnchor, constant: -30),
-            lineSep4.heightAnchor.constraint(equalToConstant: 1),
-            lineSep4.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
-            weatherDesLabel.topAnchor.constraint(equalTo: lineSep4.bottomAnchor, constant: 20),
-            weatherDesLabel.heightAnchor.constraint(equalToConstant: 30),
-            weatherDesLabel.widthAnchor.constraint(equalTo: widthAnchor),
-            weatherDesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            
-            weatherDescrip.topAnchor.constraint(equalTo: weatherDesLabel.bottomAnchor, constant: 5),
-            weatherDescrip.heightAnchor.constraint(equalToConstant: 30),
-            weatherDescrip.widthAnchor.constraint(equalTo: widthAnchor),
-            weatherDescrip.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            
-            lineSep6.topAnchor.constraint(equalTo: weatherDescrip.bottomAnchor, constant: 20),
+            lineSep6.topAnchor.constraint(equalTo: windInfo.bottomAnchor, constant: 10),
             lineSep6.widthAnchor.constraint(equalTo: widthAnchor, constant: -30),
             lineSep6.heightAnchor.constraint(equalToConstant: 1),
             lineSep6.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            sunrise.topAnchor.constraint(equalTo: lineSep6.bottomAnchor, constant: 20),
-            sunrise.heightAnchor.constraint(equalToConstant: 30),
-            sunrise.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/2),
-            sunrise.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            sunriseLabel.topAnchor.constraint(equalTo: lineSep6.bottomAnchor, constant: 5),
+            sunriseLabel.heightAnchor.constraint(equalToConstant: 30),
+            sunriseLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            sunriseLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
             
-            sunset.topAnchor.constraint(equalTo: lineSep6.bottomAnchor, constant: 20),
+            sunrise.topAnchor.constraint(equalTo: sunriseLabel.bottomAnchor, constant: 5),
+            sunrise.heightAnchor.constraint(equalToConstant: 30),
+            sunrise.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            sunrise.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
+            
+            sunsetLabel.topAnchor.constraint(equalTo: lineSep6.bottomAnchor, constant: 5),
+            sunsetLabel.heightAnchor.constraint(equalToConstant: 30),
+            sunsetLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            sunsetLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            
+            sunset.topAnchor.constraint(equalTo: sunsetLabel.bottomAnchor, constant: 5),
             sunset.heightAnchor.constraint(equalToConstant: 30),
-            sunset.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/2),
-            sunset.trailingAnchor.constraint(equalTo: trailingAnchor),
+            sunset.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5),
+            sunset.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
         ])
     }
 }
