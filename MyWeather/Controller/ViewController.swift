@@ -50,7 +50,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         let progNum = progressNumber/100
         UIView.animate(withDuration: 4) {
-            self.mainView.otherWeatherInfo.humidityBar.setProgress(progNum, animated: true)
+            self.mainView.otherWeatherInfo.humidityBar.setValue(progNum, animated: true)
         }
         self.mainView.mainTemp.lowTemp.text = "\(lowerTemp)°"
 
