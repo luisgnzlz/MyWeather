@@ -98,7 +98,7 @@ class otherWInfo: ProgramaticView {
             lineSep2.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             humidityLabel.topAnchor.constraint(equalTo: lineSep2.bottomAnchor, constant: 5),
-            humidityLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            humidityLabel.trailingAnchor.constraint(equalTo: centerXAnchor),
             humidityLabel.heightAnchor.constraint(equalToConstant: 30),
             
             humidityNumber.topAnchor.constraint(equalTo: lineSep2.bottomAnchor, constant: 5),
