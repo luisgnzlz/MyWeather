@@ -43,6 +43,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let sunriseTime = sunsetSunriseTimeSet(convertTime: Double(sunrise))
         let descrip = "\(weathers.weather[0].description.capitalized)"
         let infoShort = "\(weathers.weather[0].shortDescription)"
+        let windDir = windLocation(weathers.wind.degree)
         
         mainView.mainTemp.mainTemp.text = "\(currentTemp)°"
         mainView.mainTemp.infoLabel.text = "\(infoShort)"
@@ -56,7 +57,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
         self.mainView.mainTemp.highTemp.text = "\(higherTemp)°"
 
-        self.mainView.otherWeatherInfo.windInfo.text = "\(weathers.wind.degree) \(windInfo) mph"
+        self.mainView.otherWeatherInfo.windInfo.text = "\(windDir) \(windInfo) mph"
         
         self.mainView.otherWeatherInfo.feelsLike.text = "\(feelTemp)°"
 
@@ -117,5 +118,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
         }
     }
+    
+    func windLocation(_ direction: Int) -> String {
+        var nesw = ""
+        
+        switch direction {
+        case 315..<360:
+            nesw = "NW "
+        case 270..<314:
+            nesw = "W "
+        case 225..<269:
+            nesw = "SW "
+        case 180..<224:
+            nesw = "S "
+        case 135..<179:
+            nesw = "SE "
+        case 90..<134:
+            nesw = "E "
+        case 45..<89:
+            nesw = "NE "
+        case 0..<44:
+            nesw = "N "
+        default:
+            nesw = ""
+        }
+        
+        return nesw
+    }
+    
 }
-
