@@ -17,6 +17,7 @@ class MainTempInfo: ProgramaticView {
     let lowTempLabel = UILabel()
     var highTemp = UILabel()
     let highTempLabel = UILabel()
+    let weatherImg = UIImageView()
 
     override func configure() {
         mainTemp.font = UIFont(name: "Charter-Roman", size: 70)
@@ -26,6 +27,8 @@ class MainTempInfo: ProgramaticView {
         cityAndState.font = UIFont(name: "Charter-Roman", size: 24)
         cityAndState.textColor = .white
         cityAndState.textAlignment = .center
+        
+        weatherImg.contentMode = .scaleAspectFill
         
         infoLabel.font = UIFont(name: "Charter-Roman", size: 12)
         infoLabel.textColor = .white
@@ -49,7 +52,7 @@ class MainTempInfo: ProgramaticView {
     }
     
     override func constrain() {
-        addConstrainedSubviews(mainTemp,cityAndState, infoLabel, lowTempLabel, lowTemp, highTempLabel, highTemp)
+        addConstrainedSubviews(mainTemp, cityAndState, weatherImg, infoLabel, lowTempLabel, lowTemp, highTempLabel, highTemp)
         
         NSLayoutConstraint.activate([
             
@@ -59,8 +62,11 @@ class MainTempInfo: ProgramaticView {
             infoLabel.topAnchor.constraint(equalTo: cityAndState.bottomAnchor, constant: 5),
             infoLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 35),
             
-            mainTemp.topAnchor.constraint(equalTo: infoLabel.bottomAnchor),
+            mainTemp.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: -10),
             mainTemp.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 35),
+            
+            weatherImg.topAnchor.constraint(equalTo: topAnchor),
+            weatherImg.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -35),
             
             highTempLabel.topAnchor.constraint(equalTo: mainTemp.bottomAnchor),
             highTempLabel.heightAnchor.constraint(equalToConstant: 30),
