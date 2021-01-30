@@ -97,9 +97,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     guard let cityname = place.locality, let statename = place.administrativeArea else {
                         return
                     }
+                    
+            let setImageWeatherIcon:(UIImage) -> Void = { iconWeatherImage in
+                DispatchQueue.main.async {
+                    self.mainView.mainTemp.weatherImg.image = iconWeatherImage
+                    }
+                }
                            
             let setWeatherInfo:(WeatherResponse) -> Void = { currentWeather in
-                               
+                let weatherIcon = currentWeather.weather[0].icon
+                self.apiWeather.weatherImageIcon(weatherIcon: weatherIcon, onCompletion: setImageWeatherIcon)
     DispatchQueue.main.async {
             self.didTabButton(weathers: currentWeather, cityName: cityname, stateName: statename)
     }

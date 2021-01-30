@@ -12,8 +12,20 @@ final class WeatherAPI {
     
     let session = URLSession.shared
     let baseUrl = "https://api.openweathermap.org"
+    let imageUrl = "https://openweathermap.org/img/wn/"
     let API_Key = "01dfd7a79576fd7292bef57bfb4c1923"
     
+    
+    func weatherImageIcon(weatherIcon: String, onCompletion: @escaping (UIImage) -> Void) {
+        let imageEndUrl = "\(weatherIcon)@4x.png"
+        guard let urlImage = URL(string: "\(imageUrl)\(imageEndUrl)") else { return }
+        
+        session.dataTask(with: urlImage) { (data, response, err) in
+            guard let data = data else { return }
+                guard let iconImage = UIImage(data: data) else {return}
+                onCompletion(iconImage)
+        }.resume()
+    }
     
     func weatherInfo(longitude: String, latitude: String,  onCompletion: @escaping (WeatherResponse) -> Void) {
             let urlDetails = "/data/2.5/weather?lat=\(latitude)&lon=\(longitude)&units=imperial&APPID=\(API_Key)"
