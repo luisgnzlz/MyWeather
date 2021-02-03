@@ -12,7 +12,6 @@ class MainWeatherView: ProgramaticView {
     
     var otherWeatherInfo = otherWInfo()
     var mainTemp = MainTempInfo()
-    let forcast = ForcastCollectionViewController()
     
     override func constrain() {
         backgroundColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
