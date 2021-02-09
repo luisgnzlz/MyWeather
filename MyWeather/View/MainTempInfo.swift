@@ -35,14 +35,14 @@ class MainTempInfo: ProgramaticView {
         infoLabel.textAlignment = .center
         
         lowTempLabel.text = "↓ "
-        lowTempLabel.textColor = .white
+        lowTempLabel.textColor = .black
         
         lowTemp.textAlignment = .center
         lowTemp.font = UIFont(name: "Charter-Roman", size: 16)
         lowTemp.textColor = .white
         
         highTempLabel.text = "↑ "
-        highTempLabel.textColor = .white
+        highTempLabel.textColor = .black
         
         highTemp.textAlignment = .center
         highTemp.font = UIFont(name: "Charter-Roman", size: 16)
