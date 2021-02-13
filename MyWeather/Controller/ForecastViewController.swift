@@ -7,42 +7,21 @@
 
 import UIKit
 
-class ForecastViewController: UIViewController, UICollectionViewDataSource {
+class ForecastViewController: UIViewController {
     
-    let layout = UICollectionViewFlowLayout()
-
+    let forecast = ForecastCollectionView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        layout.itemSize = CGSize(width: view.frame.width/5, height: 300)
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 1
         
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        forecast.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(forecast)
         
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
+        forecast.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        forecast.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        forecast.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        forecast.heightAnchor.constraint(equalToConstant: 500).isActive = true
         
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: 500).isActive = true
-        
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "collectionViewCell")
-        collectionView.dataSource = self
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell", for: indexPath)
-        
-        cell.backgroundColor = .green
-        
-        return cell
     }
     
 
