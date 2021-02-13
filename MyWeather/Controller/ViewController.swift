@@ -54,19 +54,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             self.mainView.otherWeatherInfo.humidityBar.setValue(progNum, animated: true)
         }
         self.mainView.mainTemp.lowTemp.text = "\(lowerTemp)°"
-
         self.mainView.mainTemp.highTemp.text = "\(higherTemp)°"
-
         self.mainView.otherWeatherInfo.windInfo.text = "\(windDir) \(windInfo) mph"
-        
         self.mainView.otherWeatherInfo.feelsLike.text = "\(feelTemp)°"
-
         self.mainView.otherWeatherInfo.weatherDescrip.text = "\(descrip) today. Forcast shows a high of \(higherTemp) and low of \(lowerTemp)"
-        
         self.mainView.otherWeatherInfo.sunrise.text = "\(sunriseTime)am"
-        
         self.mainView.otherWeatherInfo.sunset.text = "\(sunsetTime)pm"
-        
         self.mainView.otherWeatherInfo.humidityNumber.text = "\(weathers.main.humidity)%"
         
     }
@@ -112,38 +105,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             self.didTabButton(weathers: currentWeather, cityName: cityname, stateName: statename)
     }
         }
-                    self.apiWeather.weatherInfo(longitude: longi, latitude: lat, onCompletion: setWeatherInfo)
+                self.apiWeather.weatherInfo(longitude: longi, latitude: lat, onCompletion: setWeatherInfo)
                 }
             }
 
         }
-    }
-    
-    func windLocation(_ direction: Int) -> String {
-        var nesw = ""
-        
-        switch direction {
-        case 315..<360:
-            nesw = "NW "
-        case 270..<314:
-            nesw = "W "
-        case 225..<269:
-            nesw = "SW "
-        case 180..<224:
-            nesw = "S "
-        case 135..<179:
-            nesw = "SE "
-        case 90..<134:
-            nesw = "E "
-        case 45..<89:
-            nesw = "NE "
-        case 0..<44:
-            nesw = "N "
-        default:
-            nesw = ""
-        }
-        
-        return nesw
     }
     
 }
