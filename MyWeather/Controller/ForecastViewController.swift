@@ -9,7 +9,7 @@ import UIKit
 
 class ForecastViewController: UIViewController {
     
-    let forecast = ForecastCollectionView()
+    let forecast = ForecastCollectionView(frame: CGRect, collectionViewLayout: UICollectionViewFlowLayout)
     
     override func viewDidLoad() {
         super.viewDidLoad()
