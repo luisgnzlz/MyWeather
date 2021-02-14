@@ -13,12 +13,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var locationManager = CLLocationManager()
     var apiWeather = WeatherAPI()
     var maintempInfo = MainTempInfo()
-    lazy var contentView : otherWInfo = .init()
-    lazy var mainView = MainWeatherView()
+    var contentView = otherWInfo()
 
-    override func loadView() {
-        view = mainView
-
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpView()
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         
@@ -27,8 +27,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }
+    }
+    
+    func setUpView() {
+        view.backgroundColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
+        view.addConstrainedSubviews(maintempInfo, contentView)
         
-           }
+        NSLayoutConstraint.activate([
+                                        
+            maintempInfo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            maintempInfo.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/3),
+            maintempInfo.widthAnchor.constraint(equalTo: view.widthAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: maintempInfo.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                                        
+            ])
+    }
     
     func didTabButton(weathers: WeatherResponse, cityName: String, stateName: String) {
         let progressNumber = Float(weathers.main.humidity)
@@ -45,22 +61,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let infoShort = "\(weathers.weather[0].shortDescription)"
         let windDir = windLocation(weathers.wind.degree)
         
-        mainView.mainTemp.mainTemp.text = "\(currentTemp)°"
-        mainView.mainTemp.infoLabel.text = "\(infoShort)"
-        mainView.mainTemp.cityAndState.text = "\(cityName)"
+        maintempInfo.mainTemp.text = "\(currentTemp)°"
+        maintempInfo.infoLabel.text = "\(infoShort)"
+        maintempInfo.cityAndState.text = "\(cityName)"
         
         let progNum = progressNumber/100
         UIView.animate(withDuration: 4) {
-            self.mainView.otherWeatherInfo.humidityBar.setValue(progNum, animated: true)
+            self.contentView.humidityBar.setValue(progNum, animated: true)
         }
-        self.mainView.mainTemp.lowTemp.text = "\(lowerTemp)°"
-        self.mainView.mainTemp.highTemp.text = "\(higherTemp)°"
-        self.mainView.otherWeatherInfo.windInfo.text = "\(windDir) \(windInfo) mph"
-        self.mainView.otherWeatherInfo.feelsLike.text = "\(feelTemp)°"
-        self.mainView.otherWeatherInfo.weatherDescrip.text = "\(descrip) today. Forcast shows a high of \(higherTemp) and low of \(lowerTemp)"
-        self.mainView.otherWeatherInfo.sunrise.text = "\(sunriseTime)am"
-        self.mainView.otherWeatherInfo.sunset.text = "\(sunsetTime)pm"
-        self.mainView.otherWeatherInfo.humidityNumber.text = "\(weathers.main.humidity)%"
+        self.maintempInfo.lowTemp.text = "\(lowerTemp)°"
+        self.maintempInfo.highTemp.text = "\(higherTemp)°"
+        self.contentView.windInfo.text = "\(windDir) \(windInfo) mph"
+        self.contentView.feelsLike.text = "\(feelTemp)°"
+        self.contentView.weatherDescrip.text = "\(descrip) today. Forcast shows a high of \(higherTemp) and low of \(lowerTemp)"
+        self.contentView.sunrise.text = "\(sunriseTime)am"
+        self.contentView.sunset.text = "\(sunsetTime)pm"
+        self.contentView.humidityNumber.text = "\(weathers.main.humidity)%"
         
     }
     
@@ -78,7 +94,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         guard let locationValue : CLLocationCoordinate2D = manager.location?.coordinate else {
             return
                }
-               
         let lat = String(locationValue.latitude)
         let longi = String(locationValue.longitude)
             
@@ -91,10 +106,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     guard let cityname = place.locality, let statename = place.administrativeArea else {
                         return
                     }
-                    
             let setImageWeatherIcon:(UIImage) -> Void = { iconWeatherImage in
                 DispatchQueue.main.async {
-                    self.mainView.mainTemp.weatherImg.image = iconWeatherImage
+                    self.maintempInfo.weatherImg.image = iconWeatherImage
                     }
                 }
                            
@@ -108,7 +122,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 self.apiWeather.weatherInfo(longitude: longi, latitude: lat, onCompletion: setWeatherInfo)
                 }
             }
-
         }
     }
     
