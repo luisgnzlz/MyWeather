@@ -8,9 +8,10 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDataSource {
     
     var locationManager = CLLocationManager()
+    let layoutForecast = UICollectionViewFlowLayout()
     var apiWeather = WeatherAPI()
     var maintempInfo = MainTempInfo()
     var contentView = otherWInfo()
@@ -31,7 +32,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func setUpView() {
         view.backgroundColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
-        view.addConstrainedSubviews(maintempInfo, contentView)
+        layoutForecast.itemSize = CGSize(width: view.frame.width/5, height: 99)
+        layoutForecast.scrollDirection = .horizontal
+        layoutForecast.minimumLineSpacing = 1
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForecast)
+        collectionView.backgroundColor = .white
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
+        collectionView.dataSource = self
+        
+        view.addConstrainedSubviews(maintempInfo, contentView, collectionView)
         
         NSLayoutConstraint.activate([
                                         
@@ -39,12 +49,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             maintempInfo.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/3),
             maintempInfo.widthAnchor.constraint(equalTo: view.widthAnchor),
             
-            contentView.topAnchor.constraint(equalTo: maintempInfo.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: maintempInfo.bottomAnchor),
+            collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 100),
+            
+            contentView.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
             contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                                         
             ])
     }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath)
+        
+        collectionCell.backgroundColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
+        
+        return collectionCell
+    }
+    
     
     func didTabButton(weathers: WeatherResponse, cityName: String, stateName: String) {
         let progressNumber = Float(weathers.main.humidity)
