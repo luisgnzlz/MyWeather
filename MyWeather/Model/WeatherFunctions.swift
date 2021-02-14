@@ -33,3 +33,13 @@ func windLocation(_ direction: Int) -> String {
     
     return nesw
 }
+
+func sunsetSunriseTimeSet(convertTime: Double) -> String {
+        let sunsetDate = Date(timeIntervalSince1970: Double(convertTime))
+        let sunsetDateFormatter = DateFormatter()
+        sunsetDateFormatter.timeZone = TimeZone(abbreviation: "UTC/GMT")
+        sunsetDateFormatter.locale = NSLocale.current
+        sunsetDateFormatter.dateFormat = "hh:mm"
+        let sunsetData = sunsetDateFormatter.string(from: sunsetDate)
+        return sunsetData
+    }

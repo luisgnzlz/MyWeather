@@ -32,13 +32,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     
     func setUpView() {
         view.backgroundColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
-        layoutForecast.itemSize = CGSize(width: view.frame.width/5, height: 99)
+        layoutForecast.itemSize = CGSize(width: view.frame.width/5, height: 100)
         layoutForecast.scrollDirection = .horizontal
         layoutForecast.minimumLineSpacing = 1
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForecast)
         collectionView.backgroundColor = .white
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
+        collectionView.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         collectionView.dataSource = self
         
         view.addConstrainedSubviews(maintempInfo, contentView, collectionView)
@@ -65,15 +65,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath)
+        let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! ForecastCollectionViewCell
         
-        collectionCell.backgroundColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
-        
+        collectionCell.mainWeatherLabel.text = "10°"
+        collectionCell.highWeatherLabel.text = "↑ 2"
+        collectionCell.lowWeatherLabel.text = "↓ 3"
         return collectionCell
     }
     
     
-    func didTabButton(weathers: WeatherResponse, cityName: String, stateName: String) {
+    func weatherDisplay(weathers: WeatherResponse, cityName: String, stateName: String) {
         let progressNumber = Float(weathers.main.humidity)
         let currentTemp = Int(weathers.main.temp.rounded())
         let lowerTemp = Int(weathers.main.lowTemp.rounded())
@@ -106,16 +107,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         self.contentView.humidityNumber.text = "\(weathers.main.humidity)%"
         
     }
-    
-    func sunsetSunriseTimeSet(convertTime: Double) -> String {
-            let sunsetDate = Date(timeIntervalSince1970: Double(convertTime))
-            let sunsetDateFormatter = DateFormatter()
-            sunsetDateFormatter.timeZone = TimeZone(abbreviation: "UTC/GMT")
-            sunsetDateFormatter.locale = NSLocale.current
-            sunsetDateFormatter.dateFormat = "hh:mm"
-            let sunsetData = sunsetDateFormatter.string(from: sunsetDate)
-            return sunsetData
-        }
            
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locationValue : CLLocationCoordinate2D = manager.location?.coordinate else {
@@ -143,7 +134,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                 let weatherIcon = currentWeather.weather[0].icon
                 self.apiWeather.weatherImageIcon(weatherIcon: weatherIcon, onCompletion: setImageWeatherIcon)
     DispatchQueue.main.async {
-            self.didTabButton(weathers: currentWeather, cityName: cityname, stateName: statename)
+            self.weatherDisplay(weathers: currentWeather, cityName: cityname, stateName: statename)
     }
         }
                 self.apiWeather.weatherInfo(longitude: longi, latitude: lat, onCompletion: setWeatherInfo)
