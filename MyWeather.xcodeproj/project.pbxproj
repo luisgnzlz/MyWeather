@@ -26,7 +26,6 @@
 		AA80956825C23B4C000521FA /* fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA80956725C23B4C000521FA /* fonts.swift */; };
 		AAAC135225BA0A8F004D4806 /* OtherWeatherInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC135125BA0A8F004D4806 /* OtherWeatherInfo.swift */; };
 		AAFDC08025D7450B00AAAB8E /* WeatherFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDC07F25D7450B00AAAB8E /* WeatherFunctions.swift */; };
-		AAFDC08525D74A7D00AAAB8E /* ForecastCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFDC08425D74A7D00AAAB8E /* ForecastCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,7 +71,6 @@
 		AA80956725C23B4C000521FA /* fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = fonts.swift; sourceTree = "<group>"; };
 		AAAC135125BA0A8F004D4806 /* OtherWeatherInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherWeatherInfo.swift; sourceTree = "<group>"; };
 		AAFDC07F25D7450B00AAAB8E /* WeatherFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherFunctions.swift; sourceTree = "<group>"; };
-		AAFDC08425D74A7D00AAAB8E /* ForecastCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,7 +180,6 @@
 				AA3921FB25B938A200CC6A6F /* UIViewHelper.swift */,
 				AAAC135125BA0A8F004D4806 /* OtherWeatherInfo.swift */,
 				AA64215D25BA74CE00EBC091 /* MainTempInfo.swift */,
-				AAFDC08425D74A7D00AAAB8E /* ForecastCollectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -334,7 +331,6 @@
 				AA64215E25BA74CE00EBC091 /* MainTempInfo.swift in Sources */,
 				AAFDC08025D7450B00AAAB8E /* WeatherFunctions.swift in Sources */,
 				AA3921F725B9312600CC6A6F /* ProgramaticView.swift in Sources */,
-				AAFDC08525D74A7D00AAAB8E /* ForecastCollectionView.swift in Sources */,
 				AAAC135225BA0A8F004D4806 /* OtherWeatherInfo.swift in Sources */,
 				AA65B1AE25B78C70000923DD /* WeatherResponse.swift in Sources */,
 				AA80956825C23B4C000521FA /* fonts.swift in Sources */,
