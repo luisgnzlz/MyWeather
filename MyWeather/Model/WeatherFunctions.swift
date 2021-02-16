@@ -7,6 +7,8 @@
 
 import Foundation
 
+var test = String()
+
 func windLocation(_ direction: Int) -> String {
     var nesw = ""
     
@@ -43,3 +45,11 @@ func sunsetSunriseTimeSet(convertTime: Double) -> String {
         let sunsetData = sunsetDateFormatter.string(from: sunsetDate)
         return sunsetData
     }
+
+func forecastWeatherInfo(_ mainWeather: [Int]) -> (mainWeather: Int, highWeather: Int, minWeather: Int){
+    let currentWeather = mainWeather[0]
+    let high = mainWeather[1]
+    let low = mainWeather[2]
+    
+    return (currentWeather, high, low)
+}

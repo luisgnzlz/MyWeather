@@ -22,7 +22,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         setUpView()
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
-        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -34,10 +33,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         view.backgroundColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
         layoutForecast.itemSize = CGSize(width: view.frame.width/5, height: 100)
         layoutForecast.scrollDirection = .horizontal
-        layoutForecast.minimumLineSpacing = 1
+        layoutForecast.minimumLineSpacing = 0.5
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForecast)
         collectionView.backgroundColor = .white
+        collectionView.isScrollEnabled = false
         collectionView.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         collectionView.dataSource = self
         
@@ -52,25 +52,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             collectionView.topAnchor.constraint(equalTo: maintempInfo.bottomAnchor),
             collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
             collectionView.heightAnchor.constraint(equalToConstant: 100),
+            collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             contentView.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: view.widthAnchor),
             contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                                         
             ])
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! ForecastCollectionViewCell
-        
-        collectionCell.mainWeatherLabel.text = "10°"
-        collectionCell.highWeatherLabel.text = "↑ 2"
-        collectionCell.lowWeatherLabel.text = "↓ 3"
-        return collectionCell
     }
     
     
@@ -114,7 +102,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                }
         let lat = String(locationValue.latitude)
         let longi = String(locationValue.longitude)
-            
+        test = lat
         CLGeocoder().reverseGeocodeLocation(locations[0]) { (placemark, error) in
             if error != nil {
                 print("Error1111")
@@ -132,6 +120,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                            
             let setWeatherInfo:(WeatherResponse) -> Void = { currentWeather in
                 let weatherIcon = currentWeather.weather[0].icon
+                ForecastData(mainWeather: currentWeather.main.temp)
                 self.apiWeather.weatherImageIcon(weatherIcon: weatherIcon, onCompletion: setImageWeatherIcon)
     DispatchQueue.main.async {
             self.weatherDisplay(weathers: currentWeather, cityName: cityname, stateName: statename)
@@ -143,4 +132,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! ForecastCollectionViewCell
+        collectionCell.mainWeatherLabel.text = "\(ForecastData().main)°"
+        collectionCell.highWeatherLabel.text = "↑ 2"
+        collectionCell.lowWeatherLabel.text = "↓ 3"
+        return collectionCell
+    }
 }
