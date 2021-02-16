@@ -46,10 +46,10 @@ func sunsetSunriseTimeSet(convertTime: Double) -> String {
         return sunsetData
     }
 
-func forecastWeatherInfo(_ mainWeather: [Int]) -> (mainWeather: Int, highWeather: Int, minWeather: Int){
+func forecastWeatherInfo(_ mainWeather: [Int]) -> [Int]{
     let currentWeather = mainWeather[0]
     let high = mainWeather[1]
     let low = mainWeather[2]
     
-    return (currentWeather, high, low)
+    return [currentWeather, high, low]
 }
