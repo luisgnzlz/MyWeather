@@ -15,6 +15,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     var apiWeather = WeatherAPI()
     var maintempInfo = MainTempInfo()
     var contentView = otherWInfo()
+    var test1 = Double()
 
     
     override func viewDidLoad() {
@@ -102,7 +103,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                }
         let lat = String(locationValue.latitude)
         let longi = String(locationValue.longitude)
-        test = lat
+
         CLGeocoder().reverseGeocodeLocation(locations[0]) { (placemark, error) in
             if error != nil {
                 print("Error1111")
@@ -120,7 +121,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                            
             let setWeatherInfo:(WeatherResponse) -> Void = { currentWeather in
                 let weatherIcon = currentWeather.weather[0].icon
-                ForecastData(mainWeather: currentWeather.main.temp)
+                self.test1 = currentWeather.main.temp
                 self.apiWeather.weatherImageIcon(weatherIcon: weatherIcon, onCompletion: setImageWeatherIcon)
     DispatchQueue.main.async {
             self.weatherDisplay(weathers: currentWeather, cityName: cityname, stateName: statename)
@@ -138,7 +139,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! ForecastCollectionViewCell
-        collectionCell.mainWeatherLabel.text = "\(ForecastData().main)°"
+        print(self.test1)
+        print(test1)
+        collectionCell.mainWeatherLabel.text = "\(self.test1)°"
         collectionCell.highWeatherLabel.text = "↑ 2"
         collectionCell.lowWeatherLabel.text = "↓ 3"
         return collectionCell

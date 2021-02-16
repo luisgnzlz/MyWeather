@@ -8,10 +8,10 @@
 import Foundation
 
 struct ForecastData {
-    var main = Double()
+    var main = Int()
     
-    init(mainWeather: Double) {
-        self.main = mainWeather
+    init(main: Int) {
+        self.main = main
     }
     
     init() {
