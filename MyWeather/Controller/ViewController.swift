@@ -139,6 +139,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! ForecastCollectionViewCell
+        
         collectionCell.mainWeatherLabel.text = "45°"
         collectionCell.highWeatherLabel.text = "↑ 2"
         collectionCell.lowWeatherLabel.text = "↓ 3"
