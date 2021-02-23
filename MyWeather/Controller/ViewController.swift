@@ -15,18 +15,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     var apiWeather = WeatherAPI()
     var maintempInfo = MainTempInfo()
     var contentView = otherWInfo()
-    var test1 = Double()
-
+    var test1 = ForecastData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpView()
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
+            
+            setUpView()
         }
     }
     
@@ -121,7 +121,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                            
             let setWeatherInfo:(WeatherResponse) -> Void = { currentWeather in
                 let weatherIcon = currentWeather.weather[0].icon
-                self.test1 = currentWeather.main.temp
+                self.test1.main = currentWeather.main.temp
+                print(self.test1.main)
                 self.apiWeather.weatherImageIcon(weatherIcon: weatherIcon, onCompletion: setImageWeatherIcon)
     DispatchQueue.main.async {
             self.weatherDisplay(weathers: currentWeather, cityName: cityname, stateName: statename)
@@ -140,7 +141,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! ForecastCollectionViewCell
         
-        collectionCell.mainWeatherLabel.text = "45°"
+        collectionCell.mainWeatherLabel.text = "\(self.test1.main)°"
+        print(self.test1.main)
         collectionCell.highWeatherLabel.text = "↑ 2"
         collectionCell.lowWeatherLabel.text = "↓ 3"
         return collectionCell
