@@ -8,9 +8,9 @@
 import Foundation
 
 struct ForecastData {
-    var main = Double()
+    var main = Int()
     
-    init(mainWeather: Double) {
+    init(mainWeather: Int) {
         self.main = mainWeather
     }
     
