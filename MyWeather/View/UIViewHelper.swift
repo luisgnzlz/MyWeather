@@ -20,6 +20,22 @@ extension UIView {
         }
     }
     
+    func forecastHeader(_ views: UILabel...) {
+        views.forEach { view in
+            view.font = UIFont(name: fontNameLabel, size: 20)
+            view.textColor = .white
+            view.textAlignment = .center
+        }
+    }
+    
+    func forecastFooter(_ views: UILabel...) {
+        views.forEach { view in
+            view.font = UIFont(name: fontNameLabel, size: 12)
+            view.textColor = .white
+            view.textAlignment = .center
+        }
+    }
+    
     func weatherInfoTextConfig(_ views: UILabel...) {
         views.forEach { view in
             view.font = UIFont(name: fontNameLabel, size: 24)

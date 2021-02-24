@@ -35,11 +35,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         view.backgroundColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
         layoutForecast.itemSize = CGSize(width: view.frame.width/5, height: 100)
         layoutForecast.scrollDirection = .horizontal
-        layoutForecast.minimumLineSpacing = 0.5
+        layoutForecast.minimumLineSpacing = 0
         
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForecast)
-        self.collectionView.backgroundColor = .white
         self.collectionView.isScrollEnabled = false
+        self.collectionView.backgroundColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
         self.collectionView.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         self.collectionView.dataSource = self
 
@@ -120,6 +120,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             let setImageWeatherIcon:(UIImage) -> Void = { iconWeatherImage in
                 DispatchQueue.main.async {
                     self.maintempInfo.weatherImg.image = iconWeatherImage
+                    self.test1.imageWeather = iconWeatherImage
                     }
                 }
                            
@@ -143,9 +144,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! ForecastCollectionViewCell
         collectionCell.mainWeatherLabel.text = "\(self.test1.main)°"
+        collectionCell.dateInfo.text = "Tue"
+        collectionCell.timeInfo.text = "11am"
+        collectionCell.weatherImage.image = self.test1.imageWeather
         print(self.test1.main)
-        collectionCell.highWeatherLabel.text = "↑ 2"
-        collectionCell.lowWeatherLabel.text = "↓ 3"
         return collectionCell
     }
 }
