@@ -9,6 +9,8 @@ import UIKit
 
 class ForecastCollectionViewCell: UICollectionViewCell {
     
+    let dateInfo = UILabel()
+    let timeInfo = UILabel()
     let mainWeatherLabel = UILabel()
     let weatherImage = UIImageView()
     let highWeatherLabel = UILabel()
@@ -22,30 +24,28 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     }
     
     func configure() {
-        weatherInfoTextConfig(mainWeatherLabel)
-        mainWeatherLabel.textAlignment = .center
+        forecastHeader(mainWeatherLabel, dateInfo)
         
-        weatherInfoTextConfigLabel(highWeatherLabel, lowWeatherLabel)
+        weatherImage.contentMode = .scaleAspectFill
+        
+        forecastFooter(timeInfo)
     }
     
     func constrain() {
-        addConstrainedSubviews(mainWeatherLabel, highWeatherLabel, lowWeatherLabel)
+        addConstrainedSubviews(dateInfo, weatherImage, mainWeatherLabel)
         
         NSLayoutConstraint.activate([
-            mainWeatherLabel.topAnchor.constraint(equalTo: topAnchor),
+            dateInfo.topAnchor.constraint(equalTo: topAnchor),
+            dateInfo.widthAnchor.constraint(equalTo: widthAnchor),
+
+            weatherImage.widthAnchor.constraint(equalTo: widthAnchor),
+            weatherImage.centerXAnchor.constraint(equalTo: centerXAnchor),
+            weatherImage.centerYAnchor.constraint(equalTo: centerYAnchor),
+            weatherImage.heightAnchor.constraint(equalToConstant: 40),
+            
+            mainWeatherLabel.topAnchor.constraint(equalTo: weatherImage.bottomAnchor),
             mainWeatherLabel.widthAnchor.constraint(equalTo: widthAnchor),
-            mainWeatherLabel.heightAnchor.constraint(equalToConstant: 40),
-            
-            highWeatherLabel.topAnchor.constraint(equalTo: mainWeatherLabel.bottomAnchor, constant: 5),
-            highWeatherLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            highWeatherLabel.trailingAnchor.constraint(equalTo: centerXAnchor),
-            highWeatherLabel.heightAnchor.constraint(equalToConstant: 20),
-            
-            lowWeatherLabel.topAnchor.constraint(equalTo: mainWeatherLabel.bottomAnchor, constant: 5),
-            lowWeatherLabel.leadingAnchor.constraint(equalTo: highWeatherLabel.trailingAnchor),
-            lowWeatherLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
-            lowWeatherLabel.heightAnchor.constraint(equalToConstant: 20),
-        
+            mainWeatherLabel.heightAnchor.constraint(equalToConstant: 20),
         
         ])
     }

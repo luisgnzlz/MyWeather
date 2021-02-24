@@ -6,12 +6,16 @@
 //
 
 import Foundation
+import UIKit
 
 struct ForecastData {
     var main = Int()
+    var highTemp = Int()
+    var lowTemp = Int()
+    var imageWeather = UIImage()
     
-    init(mainWeather: Int) {
-        self.main = mainWeather
+    init(mainWeather: UIImage) {
+        self.imageWeather = mainWeather
     }
     
     init() {
