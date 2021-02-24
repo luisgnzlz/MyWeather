@@ -46,7 +46,7 @@ extension UIView {
     func weatherInfoTextConfigLabel(_ views: UILabel...) {
         views.forEach { view in
             view.font = UIFont(name: fontNameLabel, size: 16)
-            view.textColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.6)
+            view.textColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.7)
             view.textAlignment = .center
         }
     }

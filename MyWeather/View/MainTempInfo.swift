@@ -18,6 +18,8 @@ class MainTempInfo: ProgramaticView {
     var highTemp = UILabel()
     let highTempLabel = UILabel()
     let weatherImg = UIImageView()
+    let settingsButton = UIButton()
+    let searchButton = UIButton()
 
     override func configure() {
         mainTemp.font = UIFont(name: "Charter-Roman", size: 70)

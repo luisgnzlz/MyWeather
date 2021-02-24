@@ -92,7 +92,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         self.maintempInfo.highTemp.text = "\(higherTemp)°"
         self.contentView.windInfo.text = "\(windDir) \(windInfo) mph"
         self.contentView.feelsLike.text = "\(feelTemp)°"
-        self.contentView.weatherDescrip.text = "\(descrip) today. Forcast shows a high of \(higherTemp) and low of \(lowerTemp)"
+        self.contentView.weatherDescrip.text = "\(descrip) today. Forecast shows a high of \(higherTemp) and low of \(lowerTemp)"
         self.contentView.sunrise.text = "\(sunriseTime)am"
         self.contentView.sunset.text = "\(sunsetTime)pm"
         self.contentView.humidityNumber.text = "\(weathers.main.humidity)%"
