@@ -26,11 +26,13 @@ class MainTempInfo: ProgramaticView {
         mainTemp.textColor = .white
         mainTemp.textAlignment = .center
         
-        settingsButton.backgroundColor = .white
-        settingsButton.layer.cornerRadius = 15
+        settingsButton.setBackgroundImage(UIImage(systemName: "gearshape"), for: .normal)
+        settingsButton.tintColor = .white
+        settingsButton.contentMode = .scaleAspectFill
         
-        searchButton.backgroundColor = .white
-        searchButton.layer.cornerRadius = 15
+        searchButton.setBackgroundImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        searchButton.tintColor = .white
+        searchButton.contentMode = .scaleAspectFill
         
         cityAndState.font = UIFont(name: "Charter-Roman", size: 24)
         cityAndState.textColor = .white
@@ -76,10 +78,14 @@ class MainTempInfo: ProgramaticView {
             weatherImg.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -35),
             
             settingsButton.topAnchor.constraint(equalTo: topAnchor, constant: 25),
-            settingsButton.leadingAnchor.constraint(equalTo: weatherImg.trailingAnchor, constant: -10),
+            settingsButton.leadingAnchor.constraint(equalTo: weatherImg.trailingAnchor),
+            settingsButton.widthAnchor.constraint(equalToConstant: 20),
+            settingsButton.heightAnchor.constraint(equalToConstant: 20),
             
-            searchButton.topAnchor.constraint(equalTo: settingsButton.bottomAnchor, constant: 20),
-            searchButton.leadingAnchor.constraint(equalTo: weatherImg.trailingAnchor, constant: -10),
+            searchButton.topAnchor.constraint(equalTo: settingsButton.bottomAnchor, constant: 10),
+            searchButton.leadingAnchor.constraint(equalTo: weatherImg.trailingAnchor),
+            searchButton.widthAnchor.constraint(equalToConstant: 20),
+            searchButton.heightAnchor.constraint(equalToConstant: 20),
             
             highTempLabel.topAnchor.constraint(equalTo: mainTemp.bottomAnchor),
             highTempLabel.heightAnchor.constraint(equalToConstant: 30),
