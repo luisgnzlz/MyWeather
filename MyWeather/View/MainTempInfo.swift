@@ -26,6 +26,12 @@ class MainTempInfo: ProgramaticView {
         mainTemp.textColor = .white
         mainTemp.textAlignment = .center
         
+        settingsButton.backgroundColor = .white
+        settingsButton.layer.cornerRadius = 15
+        
+        searchButton.backgroundColor = .white
+        searchButton.layer.cornerRadius = 15
+        
         cityAndState.font = UIFont(name: "Charter-Roman", size: 24)
         cityAndState.textColor = .white
         cityAndState.textAlignment = .center
@@ -53,7 +59,7 @@ class MainTempInfo: ProgramaticView {
     }
     
     override func constrain() {
-        addConstrainedSubviews(mainTemp, cityAndState, weatherImg, infoLabel, lowTempLabel, lowTemp, highTempLabel, highTemp)
+        addConstrainedSubviews(mainTemp, cityAndState, weatherImg, settingsButton, searchButton, infoLabel, lowTempLabel, lowTemp, highTempLabel, highTemp)
         
         NSLayoutConstraint.activate([
             
@@ -68,6 +74,12 @@ class MainTempInfo: ProgramaticView {
             
             weatherImg.topAnchor.constraint(equalTo: topAnchor),
             weatherImg.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -35),
+            
+            settingsButton.topAnchor.constraint(equalTo: topAnchor, constant: 25),
+            settingsButton.leadingAnchor.constraint(equalTo: weatherImg.trailingAnchor, constant: -10),
+            
+            searchButton.topAnchor.constraint(equalTo: settingsButton.bottomAnchor, constant: 20),
+            searchButton.leadingAnchor.constraint(equalTo: weatherImg.trailingAnchor, constant: -10),
             
             highTempLabel.topAnchor.constraint(equalTo: mainTemp.bottomAnchor),
             highTempLabel.heightAnchor.constraint(equalToConstant: 30),
