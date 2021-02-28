@@ -17,6 +17,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     var contentView = otherWInfo()
     var test1 = ForecastData()
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout.init())
+    let tsetArray = [1,2,3,4,5]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,7 +144,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! ForecastCollectionViewCell
-        collectionCell.mainWeatherLabel.text = "\(self.test1.main)°"
+        
+        for num in tsetArray {
+            collectionCell.mainWeatherLabel.text = "\(num)°"
+        }
         collectionCell.dateInfo.text = "Tue"
         collectionCell.timeInfo.text = "11am"
         collectionCell.weatherImage.image = self.test1.imageWeather
