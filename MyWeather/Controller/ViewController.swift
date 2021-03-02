@@ -111,7 +111,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
 
         CLGeocoder().reverseGeocodeLocation(locations[0]) { (placemark, error) in
             if error != nil {
-                print("Error1111")
+                
             }
             else {
                 if let place = placemark?[0] {
@@ -151,7 +151,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         collectionCell.dateInfo.text = "Tue"
         collectionCell.timeInfo.text = "11am"
         collectionCell.weatherImage.image = self.test1.imageWeather
-        print(self.test1.main)
         return collectionCell
     }
 }
