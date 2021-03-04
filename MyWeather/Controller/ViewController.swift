@@ -139,15 +139,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return self.tsetArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! ForecastCollectionViewCell
         
-        collectionCell.configure(with: tsetArray[indexPath.row])
+        
+        collectionCell.mainWeatherLabel.text = "\(tsetArray[indexPath.row])°"
         collectionCell.dateInfo.text = "Tue"
-        collectionCell.timeInfo.text = "11am"
         collectionCell.weatherImage.image = self.test1.imageWeather
         return collectionCell
     }
