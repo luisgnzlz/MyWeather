@@ -44,6 +44,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         self.collectionView.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         self.collectionView.dataSource = self
 
+        maintempInfo.searchButton.addTarget(self, action: #selector(displaySearchVC), for: .touchUpInside)
         
         view.addConstrainedSubviews(maintempInfo, contentView, collectionView)
         
@@ -65,6 +66,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             ])
     }
     
+    @objc func displaySearchVC() {
+        present(SearchViewController(), animated: true, completion: nil)
+    }
     
     func weatherDisplay(weathers: WeatherResponse, cityName: String, stateName: String) {
         let progressNumber = Float(weathers.main.humidity)
