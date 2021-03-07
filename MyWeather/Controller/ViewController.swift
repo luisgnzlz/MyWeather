@@ -45,6 +45,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         self.collectionView.dataSource = self
 
         maintempInfo.searchButton.addTarget(self, action: #selector(displaySearchVC), for: .touchUpInside)
+        maintempInfo.settingsButton.addTarget(self, action: #selector(displaySettingsVC), for: .touchUpInside)
         
         view.addConstrainedSubviews(maintempInfo, contentView, collectionView)
         
@@ -64,6 +65,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
                                         
             ])
+    }
+    
+    @objc func displaySettingsVC() {
+        present(SettingsViewController(), animated: true, completion: nil)
     }
     
     @objc func displaySearchVC() {
