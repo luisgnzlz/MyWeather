@@ -32,9 +32,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             setUpView()
         }
     }
-    
-    @objc func changeTest() {
-        collectionView.backgroundColor = .green
+
+    func changeTest() {
+        self.collectionView.backgroundColor = .green
+        self.collectionView.reloadData()
+        print("jdalkfja;lkdjf;alkjdaklfj;aldkjflkdsjf;aldkjf;laj")
     }
     
     func setUpView() {
