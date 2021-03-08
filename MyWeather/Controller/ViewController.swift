@@ -21,6 +21,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = bgColor
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
@@ -32,15 +33,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         }
     }
     
+    @objc func changeTest() {
+        collectionView.backgroundColor = .green
+    }
+    
     func setUpView() {
-        view.backgroundColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
         layoutForecast.itemSize = CGSize(width: view.frame.width/5, height: 100)
         layoutForecast.scrollDirection = .horizontal
         layoutForecast.minimumLineSpacing = 0
         
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForecast)
         self.collectionView.isScrollEnabled = false
-        self.collectionView.backgroundColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
+        self.collectionView.backgroundColor = bgColor
         self.collectionView.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         self.collectionView.dataSource = self
 
@@ -74,6 +78,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     @objc func displaySearchVC() {
         present(SearchViewController(), animated: true, completion: nil)
     }
+    
     
     func weatherDisplay(weathers: WeatherResponse, cityName: String, stateName: String) {
         let progressNumber = Float(weathers.main.humidity)
