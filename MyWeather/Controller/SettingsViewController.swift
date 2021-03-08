@@ -10,7 +10,6 @@ import UIKit
 class SettingsViewController: UIViewController, UIColorPickerViewControllerDelegate {
     
     var settingView = SettingsView()
-    var mainVC = ViewController()
     private var pickedColor = UIColor.systemTeal
     private var colorPicker = UIColorPickerViewController()
 
@@ -47,9 +46,7 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         print("Color Picker Controller Did Finish")
-        ViewController().collectionView.backgroundView?.backgroundColor = bgColor
         super.presentingViewController?.view.backgroundColor = bgColor
-        ViewController().changeTest()
     }
-    
+
 }
