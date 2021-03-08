@@ -18,7 +18,7 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
+        //backgroundColor = bgColor
         configure()
         constrain()
     }
