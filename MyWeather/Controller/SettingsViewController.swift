@@ -43,13 +43,13 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         pickedColor = viewController.selectedColor
         bgColor = pickedColor
-        super.presentingViewController?.view.backgroundColor = bgColor
-        ViewController.init().collectionView.backgroundColor = bgColor
-        ViewController.init().collectionView.reloadData()
     }
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         print("Color Picker Controller Did Finish")
+        ViewController().collectionView.backgroundView?.backgroundColor = bgColor
+        super.presentingViewController?.view.backgroundColor = bgColor
+        ViewController().changeTest()
     }
     
 }
