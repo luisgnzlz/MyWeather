@@ -23,7 +23,7 @@ extension UIView {
     func forecastHeader(_ views: UILabel...) {
         views.forEach { view in
             view.font = UIFont(name: fontNameLabel, size: 20)
-            view.textColor = .white
+            view.textColor = fontColor
             view.textAlignment = .center
         }
     }
@@ -31,7 +31,7 @@ extension UIView {
     func forecastFooter(_ views: UILabel...) {
         views.forEach { view in
             view.font = UIFont(name: fontNameLabel, size: 12)
-            view.textColor = .white
+            view.textColor = fontColor
             view.textAlignment = .center
         }
     }
@@ -39,7 +39,7 @@ extension UIView {
     func weatherInfoTextConfig(_ views: UILabel...) {
         views.forEach { view in
             view.font = UIFont(name: fontNameLabel, size: 24)
-            view.textColor = .white
+            view.textColor = fontColor
         }
     }
     
@@ -51,9 +51,22 @@ extension UIView {
         }
     }
     
+    func settingsLabelTextConfig(_ views: UILabel...) {
+        views.forEach { view in
+            view.font = UIFont(name: fontNameLabel, size: 20)
+            view.textColor = fontColor
+        }
+    }
+    
     func lineSepHelp(_ views: UIView...) {
         views.forEach { view in
             view.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.4)
+        }
+    }
+    
+    func changedTextColor(_ views: UILabel...) {
+        views.forEach { view in
+            view.textColor = fontColor
         }
     }
 }

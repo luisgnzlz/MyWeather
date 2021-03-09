@@ -6,5 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 let fontNameLabel = "Charter-Roman"
+var fontColor = UIColor.white
