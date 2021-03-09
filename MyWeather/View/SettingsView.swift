@@ -9,22 +9,36 @@ import UIKit
 
 class SettingsView: ProgramaticView {
     
-    let colorPickerButton = UIButton()
+    let vcTitleLabel = UILabel()
+    let backgroundColorPickerButton = UIButton()
+    let backgroundColorLabel = UILabel()
+    let textColorPickerButton = UIButton()
+    let textColorLabel = UILabel()
     
     override func configure() {
-        colorPickerButton.setBackgroundImage(UIImage(systemName: "eyedropper"), for: .normal)
-        colorPickerButton.tintColor = .white
-        colorPickerButton.contentMode = .scaleAspectFill
+        settingsLabelTextConfig(backgroundColorLabel)
+        
+        vcTitleLabel.text = "Settings"
+        vcTitleLabel.font = UIFont(name: fontNameLabel, size: 30)
+        vcTitleLabel.textColor = .white
+        
+        backgroundColorPickerButton.setTitle("Change Background Color", for: .normal)
+        backgroundColorPickerButton.setTitleColor(.white, for: .normal)
+        backgroundColorPickerButton.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
+        backgroundColorPickerButton.layer.cornerRadius = 5
     }
     
     override func constrain() {
-        addConstrainedSubviews(colorPickerButton)
+        addConstrainedSubviews(vcTitleLabel, backgroundColorPickerButton)
         
         NSLayoutConstraint.activate([
-            colorPickerButton.topAnchor.constraint(equalTo: topAnchor),
-            colorPickerButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            colorPickerButton.widthAnchor.constraint(equalToConstant: 20),
-            colorPickerButton.heightAnchor.constraint(equalToConstant: 20),
+            vcTitleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            vcTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            
+            backgroundColorPickerButton.topAnchor.constraint(equalTo: vcTitleLabel.bottomAnchor, constant: 15),
+            backgroundColorPickerButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            backgroundColorPickerButton.widthAnchor.constraint(equalToConstant: 300),
+            backgroundColorPickerButton.heightAnchor.constraint(equalToConstant: 36),
         
         ])
     }

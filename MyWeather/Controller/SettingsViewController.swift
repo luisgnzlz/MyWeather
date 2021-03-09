@@ -10,6 +10,7 @@ import UIKit
 class SettingsViewController: UIViewController, UIColorPickerViewControllerDelegate {
     
     var settingView = SettingsView()
+    var mainVC = ViewController()
     private var pickedColor = UIColor.systemTeal
     private var colorPicker = UIColorPickerViewController()
 
@@ -23,7 +24,7 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
     func setUpVC() {
         view.addConstrainedSubviews(settingView)
         
-        settingView.colorPickerButton.addTarget(self, action: #selector(selectColor), for: .touchUpInside)
+        settingView.backgroundColorPickerButton.addTarget(self, action: #selector(selectColor), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             settingView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -47,6 +48,8 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         print("Color Picker Controller Did Finish")
         super.presentingViewController?.view.backgroundColor = bgColor
+        fontColor = bgColor
+        ViewController().testChange()
     }
 
 }

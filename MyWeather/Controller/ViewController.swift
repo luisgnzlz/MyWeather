@@ -67,6 +67,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             ])
     }
     
+     @objc func testChange() {
+        self.maintempInfo.mainTemp.textColor = .green
+        print("this is a test to see this")
+    }
+    
     @objc func displaySettingsVC() {
         present(SettingsViewController(), animated: true, completion: nil)
     }
