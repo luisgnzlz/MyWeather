@@ -33,12 +33,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         }
     }
 
-    func changeTest() {
-        self.collectionView.backgroundColor = .green
-        self.collectionView.reloadData()
-        print("jdalkfja;lkdjf;alkjdaklfj;aldkjflkdsjf;aldkjf;laj")
-    }
-    
     func setUpView() {
         layoutForecast.itemSize = CGSize(width: view.frame.width/5, height: 100)
         layoutForecast.scrollDirection = .horizontal
@@ -46,7 +40,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForecast)
         self.collectionView.isScrollEnabled = false
-        self.collectionView.backgroundColor = bgColor
+        self.collectionView.backgroundColor = .clear
         self.collectionView.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         self.collectionView.dataSource = self
 
