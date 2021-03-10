@@ -26,7 +26,7 @@ class MainTempInfo: ProgramaticView {
         mainTemp.textColor = .white
         mainTemp.textAlignment = .center
         
-        settingsButton.setBackgroundImage(UIImage(systemName: "gearshape"), for: .normal)
+        settingsButton.setBackgroundImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
         settingsButton.tintColor = .white
         settingsButton.contentMode = .scaleAspectFill
         
@@ -79,13 +79,13 @@ class MainTempInfo: ProgramaticView {
             
             settingsButton.topAnchor.constraint(equalTo: topAnchor, constant: 25),
             settingsButton.leadingAnchor.constraint(equalTo: weatherImg.trailingAnchor),
-            settingsButton.widthAnchor.constraint(equalToConstant: 20),
-            settingsButton.heightAnchor.constraint(equalToConstant: 20),
+            settingsButton.widthAnchor.constraint(equalToConstant: 25),
+            settingsButton.heightAnchor.constraint(equalToConstant: 25),
             
             searchButton.topAnchor.constraint(equalTo: settingsButton.bottomAnchor, constant: 10),
             searchButton.leadingAnchor.constraint(equalTo: weatherImg.trailingAnchor),
-            searchButton.widthAnchor.constraint(equalToConstant: 20),
-            searchButton.heightAnchor.constraint(equalToConstant: 20),
+            searchButton.widthAnchor.constraint(equalToConstant: 25),
+            searchButton.heightAnchor.constraint(equalToConstant: 25),
             
             highTempLabel.topAnchor.constraint(equalTo: mainTemp.bottomAnchor),
             highTempLabel.heightAnchor.constraint(equalToConstant: 30),
