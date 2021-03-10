@@ -8,37 +8,78 @@
 import UIKit
 
 class SettingsView: ProgramaticView {
-    
-    let vcTitleLabel = UILabel()
+
+    let viewScroller = UIView()
     let backgroundColorPickerButton = UIButton()
-    let backgroundColorLabel = UILabel()
     let textColorPickerButton = UIButton()
-    let textColorLabel = UILabel()
+    let bgPickerImage = UIImageView()
+    let textPickerImage = UIImageView()
+    let underBGColorView = UIView()
+    let underTColorView = UIView()
     
     override func configure() {
-        settingsLabelTextConfig(backgroundColorLabel)
-        
-        vcTitleLabel.text = "Settings"
-        vcTitleLabel.font = UIFont(name: fontNameLabel, size: 30)
-        vcTitleLabel.textColor = .white
         
         backgroundColorPickerButton.setTitle("Change Background Color", for: .normal)
         backgroundColorPickerButton.setTitleColor(.white, for: .normal)
-        backgroundColorPickerButton.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.6)
         backgroundColorPickerButton.layer.cornerRadius = 5
+        
+        bgPickerImage.image = UIImage(systemName: "eyedropper.full")
+        bgPickerImage.tintColor = .white
+        bgPickerImage.contentMode = .scaleAspectFill
+        
+        textPickerImage.image = UIImage(systemName: "textformat.alt")
+        textPickerImage.tintColor = .white
+        textPickerImage.contentMode = .scaleAspectFill
+        
+        viewScroller.backgroundColor = .lightGray
+        viewScroller.layer.cornerRadius = 5
+        
+        underBGColorView.backgroundColor = .gray
+        
+        underTColorView.backgroundColor = .gray
+        
+        textColorPickerButton.setTitle("Change Text Color", for: .normal)
+        textColorPickerButton.setTitleColor(.white, for: .normal)
+        textColorPickerButton.layer.cornerRadius = 5
     }
     
     override func constrain() {
-        addConstrainedSubviews(vcTitleLabel, backgroundColorPickerButton)
+        addConstrainedSubviews(viewScroller, backgroundColorPickerButton, bgPickerImage, underBGColorView, textColorPickerButton, textPickerImage, underTColorView)
         
         NSLayoutConstraint.activate([
-            vcTitleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            vcTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             
-            backgroundColorPickerButton.topAnchor.constraint(equalTo: vcTitleLabel.bottomAnchor, constant: 15),
-            backgroundColorPickerButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            backgroundColorPickerButton.widthAnchor.constraint(equalToConstant: 300),
-            backgroundColorPickerButton.heightAnchor.constraint(equalToConstant: 36),
+            viewScroller.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            viewScroller.centerXAnchor.constraint(equalTo: centerXAnchor),
+            viewScroller.widthAnchor.constraint(equalToConstant: 50),
+            viewScroller.heightAnchor.constraint(equalToConstant: 5),
+            
+            bgPickerImage.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+            bgPickerImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            bgPickerImage.widthAnchor.constraint(equalToConstant: 25),
+            bgPickerImage.heightAnchor.constraint(equalToConstant: 25),
+
+            backgroundColorPickerButton.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+            backgroundColorPickerButton.leadingAnchor.constraint(equalTo: bgPickerImage.trailingAnchor, constant: 20),
+            backgroundColorPickerButton.heightAnchor.constraint(equalToConstant: 30),
+            
+            underBGColorView.topAnchor.constraint(equalTo: backgroundColorPickerButton.bottomAnchor, constant: 5),
+            underBGColorView.leadingAnchor.constraint(equalTo: backgroundColorPickerButton.leadingAnchor),
+            underBGColorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            underBGColorView.heightAnchor.constraint(equalToConstant: 1),
+            
+            textPickerImage.topAnchor.constraint(equalTo: underBGColorView.bottomAnchor, constant: 10),
+            textPickerImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            textPickerImage.widthAnchor.constraint(equalToConstant: 25),
+            textPickerImage.heightAnchor.constraint(equalToConstant: 25),
+            
+            textColorPickerButton.topAnchor.constraint(equalTo: backgroundColorPickerButton.bottomAnchor, constant: 15),
+            textColorPickerButton.leadingAnchor.constraint(equalTo: textPickerImage.trailingAnchor, constant: 20),
+            textColorPickerButton.heightAnchor.constraint(equalToConstant: 30),
+            
+            underTColorView.topAnchor.constraint(equalTo: textColorPickerButton.bottomAnchor, constant: 5),
+            underTColorView.leadingAnchor.constraint(equalTo: textColorPickerButton.leadingAnchor),
+            underTColorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            underTColorView.heightAnchor.constraint(equalToConstant: 1),
         
         ])
     }

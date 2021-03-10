@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         colorPicker.delegate = self
-        view.backgroundColor = pickedColor
+        view.backgroundColor = .black
         setUpVC()
     }
     
