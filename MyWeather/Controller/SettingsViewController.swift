@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         colorPicker.delegate = self
-        view.backgroundColor = .black
+        view.backgroundColor = .darkGray
         setUpVC()
     }
     
@@ -25,6 +25,7 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
         view.addConstrainedSubviews(settingView)
         
         settingView.backgroundColorPickerButton.addTarget(self, action: #selector(selectColor), for: .touchUpInside)
+        settingView.darkModeSwitcher.addTarget(self, action: #selector(darkModeFunc), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             settingView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -32,6 +33,18 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
             settingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             settingView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+    
+    @objc func darkModeFunc() {
+        if settingView.darkModeSwitcher.isOn {
+            print("its on")
+            settingView.darkModeSwitcher.isOn = true
+            settingView.darkModeImage.image = UIImage(systemName: "moon.circle.fill")
+        } else {
+            settingView.darkModeSwitcher.isOn = false
+            settingView.darkModeImage.image = UIImage(systemName: "moon.circle")
+            print("its off")
+        }
     }
     
     @objc private func selectColor() {
