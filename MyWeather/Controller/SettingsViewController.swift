@@ -35,15 +35,64 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
         ])
     }
     
+    func animateDarkMode(_ buttons: [UIButton], images: [UIImageView], views: [UIView]) {
+        let animation = CABasicAnimation()
+        animation.keyPath = "transform.scale"
+        animation.fromValue = 1
+        animation.toValue = 0
+        animation.duration = 0.5
+        
+        buttons.forEach { button in
+            button.layer.add(animation, forKey: "basic")
+            button.layer.transform = CATransform3DMakeScale(0, 0, 1)
+        }
+        
+        images.forEach { image in
+            image.layer.add(animation, forKey: "basic")
+            image.layer.transform = CATransform3DMakeScale(0, 0, 1)
+        }
+        
+        views.forEach { lineView in
+            lineView.layer.add(animation, forKey: "basic")
+            lineView.layer.transform = CATransform3DMakeScale(0, 0, 1)
+        }
+    }
+    
+    func unAnimateDarkMode(_ buttons: [UIButton], images: [UIImageView], views: [UIView]) {
+        let animation = CABasicAnimation()
+        animation.keyPath = "transform.scale"
+        animation.fromValue = 0
+        animation.toValue = 1
+        animation.duration = 0.5
+        
+        buttons.forEach { button in
+            button.layer.add(animation, forKey: "undo")
+            button.layer.transform = CATransform3DMakeScale(1, 1, 1)
+        }
+        
+        images.forEach { image in
+            image.layer.add(animation, forKey: "undo")
+            image.layer.transform = CATransform3DMakeScale(1, 1, 1)
+        }
+        
+        views.forEach { lineView in
+            lineView.layer.add(animation, forKey: "undo")
+            lineView.layer.transform = CATransform3DMakeScale(1, 1, 1)
+        }
+    
+    }
+    
     @objc func darkModeFunc() {
         if settingView.darkModeSwitcher.isOn {
             print("its on")
             settingView.darkModeSwitcher.isOn = true
             settingView.darkModeImage.image = UIImage(systemName: "moon.circle.fill")
+            animateDarkMode([settingView.backgroundColorPickerButton,settingView.textColorPickerButton,settingView.restoreButton], images: [settingView.bgPickerImage,settingView.textPickerImage,settingView.restoreImage], views: [settingView.underBGColorView,settingView.underTColorView,settingView.underUndoView])
         } else {
             settingView.darkModeSwitcher.isOn = false
             settingView.darkModeImage.image = UIImage(systemName: "moon.circle")
             print("its off")
+            unAnimateDarkMode([settingView.backgroundColorPickerButton,settingView.textColorPickerButton,settingView.restoreButton], images: [settingView.bgPickerImage,settingView.textPickerImage,settingView.restoreImage], views: [settingView.underBGColorView,settingView.underTColorView,settingView.underUndoView])
         }
     }
     
