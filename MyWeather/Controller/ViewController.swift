@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 import CoreLocation
 
 class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDataSource {

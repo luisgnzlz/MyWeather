@@ -30,4 +30,11 @@ class SearchViewController: UIViewController {
         ])
     }
     
+    func weatherDisplay(weathers: WeatherResponse, cityName: String, stateName: String) {
+        
+        let currentTemp = Int(weathers.main.temp.rounded())
+        
+        searchView.weatherLabel.text = "\(currentTemp)"
+    }
+    
 }
