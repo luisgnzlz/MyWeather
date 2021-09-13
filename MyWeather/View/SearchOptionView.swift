@@ -10,6 +10,7 @@ import UIKit
 class SearchOptionView: ProgramaticView {
 
     let search = UITextField()
+    let weatherLabel = UILabel()
     
     override func configure() {
         search.backgroundColor = .gray
@@ -17,10 +18,16 @@ class SearchOptionView: ProgramaticView {
         search.layer.cornerRadius = 5
         search.layer.masksToBounds = true
         search.font = UIFont.systemFont(ofSize: 24)
+        
+        weatherLabel.font = UIFont(name: "Charter-Roman", size: 70)
+        weatherLabel.textColor = .gray
+        weatherLabel.shadowColor = .black
+        weatherLabel.textAlignment = .center
+        weatherLabel.text = ""
     }
     
     override func constrain() {
-        addConstrainedSubviews(search)
+        addConstrainedSubviews(search, weatherLabel)
         
         NSLayoutConstraint.activate([
         
@@ -28,6 +35,9 @@ class SearchOptionView: ProgramaticView {
             search.widthAnchor.constraint(equalTo: widthAnchor, constant: -10),
             search.heightAnchor.constraint(equalToConstant: 50),
             search.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            weatherLabel.topAnchor.constraint(equalTo: search.bottomAnchor, constant: 20),
+            weatherLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
         ])
     }
 }
