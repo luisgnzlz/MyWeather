@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, UITextFieldDelegate {
 
     let searchView = SearchOptionView()
     
@@ -35,6 +35,12 @@ class SearchViewController: UIViewController {
         let currentTemp = Int(weathers.main.temp.rounded())
         
         searchView.weatherLabel.text = "\(currentTemp)"
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchView.search.resignFirstResponder()
+        
+        return true
     }
     
 }
