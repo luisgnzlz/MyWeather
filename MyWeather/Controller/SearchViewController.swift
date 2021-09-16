@@ -14,7 +14,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 0.9)
         constrain()
     }
     
@@ -42,5 +42,4 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         
         return true
     }
-    
 }
