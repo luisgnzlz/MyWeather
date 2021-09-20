@@ -117,6 +117,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         self.collectionView.reloadData()
         
     }
+    
+    @objc func changeBack() {
+        print("This is a test to see if it works and i will")
+    }
            
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locationValue : CLLocationCoordinate2D = manager.location?.coordinate else {
