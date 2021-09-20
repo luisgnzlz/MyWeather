@@ -9,6 +9,7 @@ import UIKit
 
 class SearchViewController: UIViewController, UITextFieldDelegate {
 
+    var apiWeather = WeatherAPI()
     let searchView = SearchOptionView()
     
     override func viewDidLoad() {
@@ -20,6 +21,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     
     func constrain() {
         view.addConstrainedSubviews(searchView)
+        searchView.searchButton.addTarget(self, action: #selector(searchStart), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             
@@ -30,7 +32,25 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         ])
     }
     
-    func weatherDisplay(weathers: WeatherResponse, cityName: String, stateName: String) {
+    @objc func searchStart() {
+        let setImageWeatherIcon:(UIImage) -> Void = { iconWeatherImage in
+            DispatchQueue.main.async {
+                self.searchView.weatherImage.image = iconWeatherImage
+            }
+        }
+        
+        let setWeatherInfo:(WeatherResponse) -> Void = { currentWeather in
+            let weatherIcon = currentWeather.weather[0].icon
+            self.apiWeather.weatherImageIcon(weatherIcon: weatherIcon, onCompletion: setImageWeatherIcon)
+        DispatchQueue.main.async {
+            self.weatherDisplay(weathers: currentWeather, cityName: self.searchView.search.text!)
+        }
+        }
+            self.apiWeather.weatherCityInfo(city: self.searchView.search.text ?? "Hesperia", onCompletion: setWeatherInfo)
+        
+    }
+    
+    func weatherDisplay(weathers: WeatherResponse, cityName: String) {
         
         let currentTemp = Int(weathers.main.temp.rounded())
         
