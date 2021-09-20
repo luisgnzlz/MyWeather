@@ -45,10 +45,10 @@ class SearchOptionView: ProgramaticView {
         searchButton.tintColor = .black
         
         weatherLabel.font = UIFont(name: "Charter-Roman", size: 70)
-        weatherLabel.textColor = .gray
+        weatherLabel.textColor = .white
         weatherLabel.shadowColor = .black
         weatherLabel.textAlignment = .center
-        weatherLabel.text = "--°"
+        weatherLabel.text = "99°"
         
         weatherImage.contentMode = .scaleAspectFill
     }
