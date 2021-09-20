@@ -15,13 +15,13 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 0.9)
+        view.backgroundColor = bgColor.withAlphaComponent(0.9)
         constrain()
     }
     
     func constrain() {
         view.addConstrainedSubviews(searchView)
-        searchView.searchButton.addTarget(self, action: #selector(searchStart), for: .touchUpInside)
+        searchView.searchButton.addTarget(self, action: #selector(checkSearch), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             
@@ -32,7 +32,16 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         ])
     }
     
-    @objc func searchStart() {
+    @objc func checkSearch() {
+        guard let cityName = searchView.search.text else {
+            return
+        }
+        searchStart(city: cityName)
+    }
+    
+    func searchStart(city: String) {
+        
+        let cityDisplayName = city.replacingOccurrences(of: " ", with: "%20")
         let setImageWeatherIcon:(UIImage) -> Void = { iconWeatherImage in
             DispatchQueue.main.async {
                 self.searchView.weatherImage.image = iconWeatherImage
@@ -45,8 +54,8 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         DispatchQueue.main.async {
             self.weatherDisplay(weathers: currentWeather, cityName: self.searchView.search.text!)
         }
-        }
-            self.apiWeather.weatherCityInfo(city: self.searchView.search.text ?? "Hesperia", onCompletion: setWeatherInfo)
+            }
+            self.apiWeather.weatherCityInfo(city: cityDisplayName, onCompletion: setWeatherInfo)
         
     }
     
@@ -54,7 +63,11 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         
         let currentTemp = Int(weathers.main.temp.rounded())
         
-        searchView.weatherLabel.text = "\(currentTemp)"
+        searchView.weatherLabel.text = "\(currentTemp)°"
+        searchView.cityName.text = "\(cityName.capitalized), "
+        searchView.stateName.text = weathers.time.country
+        searchView.highTemp.text = "\(Int(weathers.main.highTemp.rounded()))"
+        searchView.lowTemp.text = "\(Int(weathers.main.lowTemp.rounded()))"
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -44,7 +44,7 @@ final class WeatherAPI {
         }
     
     func weatherCityInfo(city: String, onCompletion: @escaping (WeatherResponse) -> Void) {
-        let urlDetails = "/data/2.5/weather?q=\(city)&appid=\(API_Key)"
+        let urlDetails = "/data/2.5/weather?q=\(city)&units=imperial&appid=\(API_Key)"
         guard let url = URL(string: baseUrl + urlDetails) else { return }
         session.dataTask(with: url) { (data, response, err) in
             guard let data = data else { return }
