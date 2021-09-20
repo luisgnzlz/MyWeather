@@ -26,6 +26,7 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
         
         settingView.backgroundColorPickerButton.addTarget(self, action: #selector(selectColor), for: .touchUpInside)
         settingView.darkModeSwitcher.addTarget(self, action: #selector(darkModeFunc), for: .touchUpInside)
+        settingView.restoreButton.addTarget(self, action: #selector(changeBack), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             settingView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -105,6 +106,10 @@ class SettingsViewController: UIViewController, UIColorPickerViewControllerDeleg
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         pickedColor = viewController.selectedColor
         bgColor = pickedColor
+    }
+    
+    @objc func changeBack() {
+        print("This is a test to see if it works and i will")
     }
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {

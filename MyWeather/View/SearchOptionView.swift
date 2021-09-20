@@ -66,7 +66,7 @@ class SearchOptionView: ProgramaticView {
             searchButton.topAnchor.constraint(equalTo: search.topAnchor, constant: 10),
             searchButton.trailingAnchor.constraint(equalTo: search.trailingAnchor, constant: -10),
             searchButton.bottomAnchor.constraint(equalTo: search.bottomAnchor, constant: -10),
-            searchButton.widthAnchor.constraint(equalToConstant: 20),
+            searchButton.widthAnchor.constraint(equalToConstant: 30),
             
             cityName.topAnchor.constraint(equalTo: search.bottomAnchor, constant: 20),
             cityName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),

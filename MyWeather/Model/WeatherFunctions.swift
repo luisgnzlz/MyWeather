@@ -8,8 +8,6 @@
 import Foundation
 import UIKit
 
-var bgColor = UIColor(red: 0.441, green: 0.801, blue: 0.919, alpha: 1.0)
-
 func windLocation(_ direction: Int) -> String {
     var nesw = ""
     
