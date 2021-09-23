@@ -23,6 +23,7 @@ class SearchOptionView: ProgramaticView {
     let highTempLabel = UILabel()
     let highTemp = UILabel()
     
+    
     override func configure() {
         
         viewScroller.backgroundColor = .lightGray
