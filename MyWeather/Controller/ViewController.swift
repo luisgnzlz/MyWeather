@@ -40,7 +40,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         layoutForecast.minimumLineSpacing = 0
         
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForecast)
-        self.collectionView.isScrollEnabled = false
+        self.collectionView.isScrollEnabled = true
         self.collectionView.backgroundColor = .clear
         self.collectionView.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         self.collectionView.dataSource = self
@@ -152,6 +152,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             self.weatherDisplay(weathers: currentWeather, cityName: cityname, stateName: statename)
     }
         }
+                    let setForecastWeatherInfo:(ForecastList) -> Void = { forecastW in
+                        print("this is the yest: \(forecastW.)")
+                    }
+                self.apiWeather.forecastWeatherInfo(longitude: longi, latitude: lat, onCompletion: setForecastWeatherInfo)
                 self.apiWeather.weatherInfo(longitude: longi, latitude: lat, onCompletion: setWeatherInfo)
                 }
             }
@@ -159,15 +163,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.tsetArray.count
+        return 40
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! ForecastCollectionViewCell
         
         
-        collectionCell.mainWeatherLabel.text = "\(tsetArray[indexPath.row])°"
-        collectionCell.dateInfo.text = "Tue"
+       // collectionCell.mainWeatherLabel.text = "\(tsetArray[indexPath.row])°"
+        collectionCell.dateInfo.text = "\(indexPath.row)"
         collectionCell.weatherImage.image = self.test1.imageWeather
         return collectionCell
     }
