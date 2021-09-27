@@ -18,7 +18,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     var contentView = otherWInfo()
     var test1 = ForecastData()
     var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout.init())
-    let tsetArray = [1,2,3,4,5]
+    var numberCells = Int()
+    var forecastMainTemp = [Int]()
+    var forecastDate = [String]()
+    var forecastImageString = [String]()
+    var forecastImage = [UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +85,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         present(SearchViewController(), animated: true, completion: nil)
     }
     
+  //  func forecastWeatherDisplay(forecast: ForecastList) {
+  //      for number in forecast.list.count {
+  //
+  //      }
+  //  }
+    
     
     func weatherDisplay(weathers: WeatherResponse, cityName: String, stateName: String) {
         let progressNumber = Float(weathers.main.humidity)
@@ -141,9 +151,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             let setImageWeatherIcon:(UIImage) -> Void = { iconWeatherImage in
                 DispatchQueue.main.async {
                     self.maintempInfo.weatherImg.image = iconWeatherImage
-                    self.test1.imageWeather = iconWeatherImage
                     }
                 }
+                    let setImageForecastIcon:(UIImage) -> Void = { forecastIconImage in
+                        self.forecastImage.append(forecastIconImage)
+                    }
                            
             let setWeatherInfo:(WeatherResponse) -> Void = { currentWeather in
                 let weatherIcon = currentWeather.weather[0].icon
@@ -153,7 +165,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     }
         }
                     let setForecastWeatherInfo:(ForecastList) -> Void = { forecastW in
-                        print("this is the yest: \(forecastW.)")
+                        self.numberCells = Int(forecastW.list.count)
+                        
+                        for index in 0..<forecastW.list.count {
+                            self.forecastMainTemp.append(Int(forecastW.list[index].main.temp))
+                            let forecastWeatherIcon = forecastW.list[index].weather[0].icon
+                            self.apiWeather.weatherImageIcon(weatherIcon: forecastWeatherIcon, onCompletion: setImageForecastIcon)
+                            print(self.forecastMainTemp)
+                        }
                     }
                 self.apiWeather.forecastWeatherInfo(longitude: longi, latitude: lat, onCompletion: setForecastWeatherInfo)
                 self.apiWeather.weatherInfo(longitude: longi, latitude: lat, onCompletion: setWeatherInfo)
@@ -163,16 +182,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 40
+        print("--------------------------------------------- \(numberCells)")
+        return numberCells
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! ForecastCollectionViewCell
         
-        
-       // collectionCell.mainWeatherLabel.text = "\(tsetArray[indexPath.row])°"
-        collectionCell.dateInfo.text = "\(indexPath.row)"
-        collectionCell.weatherImage.image = self.test1.imageWeather
+        collectionCell.dateInfo.text = "\(self.forecastMainTemp[indexPath.row])°"
+        collectionCell.weatherImage.image = self.forecastImage[indexPath.row]
         return collectionCell
     }
 }
