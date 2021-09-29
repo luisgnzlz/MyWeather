@@ -45,6 +45,30 @@ func sunsetSunriseTimeSet(convertTime: Double) -> String {
         return sunsetData
     }
 
+func forecastTimeSet(convertTime: Double) -> String {
+    let sunsetDate = Date(timeIntervalSince1970: Double(convertTime))
+    let sunsetDateFormatter = DateFormatter()
+    sunsetDateFormatter.timeZone = TimeZone(abbreviation: "UTC/GMT")
+    sunsetDateFormatter.locale = NSLocale.current
+    sunsetDateFormatter.timeStyle = .short
+    let sunsetData = sunsetDateFormatter.string(from: sunsetDate)
+    let shortString = sunsetData.replacingOccurrences(of: "00", with: "")
+    let shorterString = shortString.replacingOccurrences(of: ":", with: "").replacingOccurrences(of: " ", with: "")
+        return shorterString
+    }
+
+func forecastDateSet(convertTime: Double) -> String {
+    let sunsetDate = Date(timeIntervalSince1970: Double(convertTime))
+    let sunsetDateFormatter = DateFormatter()
+    sunsetDateFormatter.timeZone = TimeZone(abbreviation: "UTC/GMT")
+    sunsetDateFormatter.locale = NSLocale.current
+    sunsetDateFormatter.timeStyle = .none
+    sunsetDateFormatter.dateStyle = .full
+    let sunsetData = sunsetDateFormatter.string(from: sunsetDate)
+    let dateString = sunsetData.prefix(3)
+        return "\(dateString)"
+    }
+
 func forecastWeatherInfo(_ mainWeather: [Int]) -> [Int]{
     let currentWeather = mainWeather[0]
     let high = mainWeather[1]

@@ -22,7 +22,7 @@ extension UIView {
     
     func forecastHeader(_ views: UILabel...) {
         views.forEach { view in
-            view.font = UIFont(name: fontNameLabel, size: 20)
+            view.font = UIFont(name: fontNameLabel, size: 12)
             view.textColor = fontColor
             view.textAlignment = .center
         }
@@ -30,7 +30,7 @@ extension UIView {
     
     func forecastFooter(_ views: UILabel...) {
         views.forEach { view in
-            view.font = UIFont(name: fontNameLabel, size: 12)
+            view.font = UIFont(name: fontNameLabel, size: 20)
             view.textColor = fontColor
             view.textAlignment = .center
         }

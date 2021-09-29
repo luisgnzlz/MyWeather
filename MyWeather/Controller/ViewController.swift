@@ -21,6 +21,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     var numberCells = Int()
     var forecastMainTemp = [Int]()
     var forecastDate = [String]()
+    var forecastDateInfo = [String]()
     var forecastImageString = [String]()
     var forecastImage = [UIImage]()
     
@@ -39,7 +40,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     }
 
     func setUpView() {
-        layoutForecast.itemSize = CGSize(width: view.frame.width/5, height: 100)
+        layoutForecast.itemSize = CGSize(width: view.frame.width/5, height: 110)
         layoutForecast.scrollDirection = .horizontal
         layoutForecast.minimumLineSpacing = 0
         
@@ -62,7 +63,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             
             collectionView.topAnchor.constraint(equalTo: maintempInfo.bottomAnchor),
             collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 100),
+            collectionView.heightAnchor.constraint(equalToConstant: 110),
             collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             contentView.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
@@ -84,13 +85,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     @objc func displaySearchVC() {
         present(SearchViewController(), animated: true, completion: nil)
     }
-    
-  //  func forecastWeatherDisplay(forecast: ForecastList) {
-  //      for number in forecast.list.count {
-  //
-  //      }
-  //  }
-    
     
     func weatherDisplay(weathers: WeatherResponse, cityName: String, stateName: String) {
         let progressNumber = Float(weathers.main.humidity)
@@ -119,7 +113,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         self.maintempInfo.highTemp.text = "\(higherTemp)°"
         self.contentView.windInfo.text = "\(windDir) \(windInfo) mph"
         self.contentView.feelsLike.text = "\(feelTemp)°"
-        self.contentView.weatherDescrip.text = "\(descrip) today. Forecast shows a high of \(higherTemp) and low of \(lowerTemp)"
+        self.contentView.weatherDescrip.text = "\(descrip) today. Forecast shows a high of \(higherTemp)° and low of \(lowerTemp)°"
         self.contentView.sunrise.text = "\(sunriseTime)am"
         self.contentView.sunset.text = "\(sunsetTime)pm"
         self.contentView.humidityNumber.text = "\(weathers.main.humidity)%"
@@ -169,6 +163,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                         
                         for index in 0..<forecastW.list.count {
                             self.forecastMainTemp.append(Int(forecastW.list[index].main.temp))
+                            self.forecastDate.append(forecastTimeSet(convertTime: Double(forecastW.list[index].dt!)))
+                            self.forecastDateInfo.append(forecastDateSet(convertTime: Double(forecastW.list[index].dt!)))
                             let forecastWeatherIcon = forecastW.list[index].weather[0].icon
                             self.apiWeather.weatherImageIcon(weatherIcon: forecastWeatherIcon, onCompletion: setImageForecastIcon)
                             print(self.forecastMainTemp)
@@ -189,8 +185,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! ForecastCollectionViewCell
         
-        collectionCell.dateInfo.text = "\(self.forecastMainTemp[indexPath.row])°"
+        collectionCell.dateInfo.text = "\(self.forecastDateInfo[indexPath.row])"
+        collectionCell.timeInfo.text = "\(self.forecastDate[indexPath.row])"
         collectionCell.weatherImage.image = self.forecastImage[indexPath.row]
+        collectionCell.mainWeatherLabel.text = "\(self.forecastMainTemp[indexPath.row])°"
         return collectionCell
     }
 }
