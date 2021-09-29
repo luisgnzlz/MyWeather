@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UITextFieldDelegate {
+class SearchViewController: UIViewController, UISearchBarDelegate {
 
     var apiWeather = WeatherAPI()
     let searchView = SearchOptionView()
@@ -16,16 +16,16 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = bgColor.withAlphaComponent(0.9)
         constrain()
     }
     
     func constrain() {
+        self.searchView.search.delegate = self
         view.addConstrainedSubviews(searchView, scroll)
         scroll.addConstrainedSubviews(otherView)
         
-        searchView.searchButton.addTarget(self, action: #selector(checkSearch), for: .touchUpInside)
+       // searchView.searchButton.addTarget(self, action: #selector(checkSearch), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             
@@ -48,7 +48,7 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         ])
     }
     
-    @objc func checkSearch() {
+    func checkSearch() {
         guard let cityName = searchView.search.text else {
             return
         }
@@ -83,8 +83,11 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         let sunset = weathers.time.sunset
         let sunsetTime = sunsetSunriseTimeSet(convertTime: Double(sunset))
         let sunrise = weathers.time.sunrise
+        let lowTemp = Int(weathers.main.lowTemp.rounded())
+        let highTemp = Int(weathers.main.highTemp.rounded())
         let sunriseTime = sunsetSunriseTimeSet(convertTime: Double(sunrise))
         let windDir = windLocation(weathers.wind.degree)
+        let descrip = weathers.weather[0].description.capitalized
         let currentTemp = Int(weathers.main.temp.rounded())
         
         let progNum = progressNumber/100
@@ -100,15 +103,16 @@ class SearchViewController: UIViewController, UITextFieldDelegate {
         
         self.otherView.windInfo.text = "\(windDir) \(windInfo) mph"
         self.otherView.feelsLike.text = "\(feelTemp)°"
-        //self.otherView.weatherDescrip.text = "\(otherView.description) today. Forecast shows a high of \(searchView.highTemp) and low of \(searchView.lowTemp)"
+        self.otherView.weatherDescrip.text = "\(descrip) today. Forecast shows a high of \(highTemp)° and low of \(lowTemp)°"
         self.otherView.sunrise.text = "\(sunriseTime)am"
         self.otherView.sunset.text = "\(sunsetTime)pm"
         self.otherView.humidityNumber.text = "\(weathers.main.humidity)%"
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        searchView.search.resignFirstResponder()
-        
-        return true
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        self.searchStart(city: searchView.search.text!)
+        self.searchView.search.endEditing(true)
     }
+
 }

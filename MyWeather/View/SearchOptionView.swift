@@ -7,10 +7,10 @@
 
 import UIKit
 
-class SearchOptionView: ProgramaticView {
+class SearchOptionView: ProgramaticView, UISearchBarDelegate {
 
     let viewScroller = UIView()
-    let search = UITextField()
+    let search = UISearchBar()
     let searchButton = UIButton()
     let weatherLabel = UILabel()
     let weatherImage = UIImageView()
@@ -41,22 +41,13 @@ class SearchOptionView: ProgramaticView {
         
         lineSep.backgroundColor = .white
         
-        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
-        
-        search.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 0.6)
-        search.layer.borderWidth = 1
-        search.layer.borderColor = UIColor.black.cgColor
+        search.delegate = self
         search.placeholder = "Quick Search"
-        search.layer.cornerRadius = 5
-        search.layer.masksToBounds = true
-        search.font = UIFont.systemFont(ofSize: 24)
-        search.returnKeyType = .search
-        search.leftView = paddingView
-        search.leftViewMode = .always
+        search.backgroundImage = UIImage()
         
-        searchButton.setBackgroundImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        searchButton.contentMode = .scaleAspectFill
-        searchButton.tintColor = .black
+        //searchButton.setBackgroundImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        //searchButton.contentMode = .scaleAspectFill
+        //searchButton.tintColor = .black
         
         weatherLabel.font = UIFont(name: "Charter-Roman", size: 70)
         weatherLabel.textColor = .white
@@ -141,5 +132,11 @@ class SearchOptionView: ProgramaticView {
             weatherImage.leadingAnchor.constraint(equalTo: weatherLabel.trailingAnchor, constant: 20),
         ])
     }
+    
+  //  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+  //      print("6666666666666666666666666666666666666")
+  //      SearchViewController().searchStart(city: search.text!)
+  //      search.endEditing(true)
+  //  }
 
 }

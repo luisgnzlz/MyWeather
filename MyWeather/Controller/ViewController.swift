@@ -178,7 +178,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("--------------------------------------------- \(numberCells)")
         return numberCells
     }
     
