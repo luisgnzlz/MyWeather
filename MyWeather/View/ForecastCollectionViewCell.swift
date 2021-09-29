@@ -13,8 +13,6 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     let timeInfo = UILabel()
     let mainWeatherLabel = UILabel()
     let weatherImage = UIImageView()
-    let highWeatherLabel = UILabel()
-    let lowWeatherLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,26 +21,33 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     }
     
     func configure() {
-        forecastHeader(mainWeatherLabel, dateInfo)
+        forecastHeader(dateInfo)
+        
+        timeInfo.font = UIFont(name: fontNameLabel, size: 18)
+        timeInfo.textColor = fontColor
+        timeInfo.textAlignment = .center
         
         weatherImage.contentMode = .scaleAspectFill
         
-        forecastFooter(timeInfo)
+        forecastFooter(mainWeatherLabel)
     }
     
     func constrain() {
-        addConstrainedSubviews(dateInfo, weatherImage, mainWeatherLabel)
+        addConstrainedSubviews(dateInfo, timeInfo, weatherImage, mainWeatherLabel)
         
         NSLayoutConstraint.activate([
             dateInfo.topAnchor.constraint(equalTo: topAnchor),
             dateInfo.widthAnchor.constraint(equalTo: widthAnchor),
+            
+            timeInfo.topAnchor.constraint(equalTo: dateInfo.bottomAnchor),
+            timeInfo.widthAnchor.constraint(equalTo: widthAnchor),
 
             weatherImage.widthAnchor.constraint(equalTo: widthAnchor),
             weatherImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            weatherImage.centerYAnchor.constraint(equalTo: centerYAnchor),
+            weatherImage.topAnchor.constraint(equalTo: timeInfo.bottomAnchor, constant: 5),
             weatherImage.heightAnchor.constraint(equalToConstant: 40),
             
-            mainWeatherLabel.topAnchor.constraint(equalTo: weatherImage.bottomAnchor),
+            mainWeatherLabel.topAnchor.constraint(equalTo: weatherImage.bottomAnchor, constant: 5),
             mainWeatherLabel.widthAnchor.constraint(equalTo: widthAnchor),
             mainWeatherLabel.heightAnchor.constraint(equalToConstant: 20),
         
