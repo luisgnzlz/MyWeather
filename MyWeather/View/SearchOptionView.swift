@@ -41,13 +41,10 @@ class SearchOptionView: ProgramaticView, UISearchBarDelegate {
         
         lineSep.backgroundColor = .white
         
-        search.delegate = self
+        search.autocorrectionType = .yes
+        search.showsCancelButton = true
         search.placeholder = "Quick Search"
         search.backgroundImage = UIImage()
-        
-        //searchButton.setBackgroundImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        //searchButton.contentMode = .scaleAspectFill
-        //searchButton.tintColor = .black
         
         weatherLabel.font = UIFont(name: "Charter-Roman", size: 70)
         weatherLabel.textColor = .white
@@ -132,11 +129,4 @@ class SearchOptionView: ProgramaticView, UISearchBarDelegate {
             weatherImage.leadingAnchor.constraint(equalTo: weatherLabel.trailingAnchor, constant: 20),
         ])
     }
-    
-  //  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-  //      print("6666666666666666666666666666666666666")
-  //      SearchViewController().searchStart(city: search.text!)
-  //      search.endEditing(true)
-  //  }
-
 }

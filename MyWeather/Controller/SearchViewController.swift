@@ -25,8 +25,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
         view.addConstrainedSubviews(searchView, scroll)
         scroll.addConstrainedSubviews(otherView)
         
-       // searchView.searchButton.addTarget(self, action: #selector(checkSearch), for: .touchUpInside)
-        
         NSLayoutConstraint.activate([
             
             searchView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -49,7 +47,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     }
     
     func checkSearch() {
-        guard let cityName = searchView.search.text else {
+        guard let cityName = self.searchView.search.text else {
             return
         }
         searchStart(city: cityName)
@@ -110,9 +108,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-        self.searchStart(city: searchView.search.text!)
+        self.checkSearch()
         self.searchView.search.endEditing(true)
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchView.search.text = ""
+    }
 
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        if self.searchView.search.text == nil || self.searchView.search.text == ""
+                {
+                    searchBar.perform(#selector(self.resignFirstResponder), with: nil, afterDelay: 0.1)
+                }
+     }
 }
+
+
