@@ -9,10 +9,11 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDataSource {
+class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDataSource, UISearchBarDelegate {
     
     var locationManager = CLLocationManager()
     let layoutForecast = UICollectionViewFlowLayout()
+    var popUpSearch = SearchPopUp()
     var apiWeather = WeatherAPI()
     var maintempInfo = MainTempInfo()
     var contentView = otherWInfo()
@@ -24,6 +25,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     var forecastDateInfo = [String]()
     var forecastImageString = [String]()
     var forecastImage = [UIImage]()
+    var widthPopup: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +40,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             setUpView()
         }
     }
+    
+    @objc func popUpSearchBar() {
+        self.widthPopup.constant = -245
+        UIView.animate(withDuration: 1) {
+                                            
+            self.view.layoutIfNeeded()
+        }
+    }
 
     func setUpView() {
+        
+        popUpSearch.layer.cornerRadius = 10
+        
+        self.popUpSearch.searchBar.delegate = self
+        
+        widthPopup = popUpSearch.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -3)
+        
         layoutForecast.itemSize = CGSize(width: view.frame.width/5, height: 110)
         layoutForecast.scrollDirection = .horizontal
         layoutForecast.minimumLineSpacing = 0
@@ -50,12 +67,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         self.collectionView.register(ForecastCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
         self.collectionView.dataSource = self
 
-        maintempInfo.searchButton.addTarget(self, action: #selector(displaySearchVC), for: .touchUpInside)
+        maintempInfo.searchButton.addTarget(self, action: #selector(popUpSearchBar), for: .touchUpInside)
         maintempInfo.settingsButton.addTarget(self, action: #selector(displaySettingsVC), for: .touchUpInside)
         
-        view.addConstrainedSubviews(maintempInfo, contentView, collectionView)
+        view.addConstrainedSubviews(maintempInfo, popUpSearch, contentView, collectionView)
         
         NSLayoutConstraint.activate([
+            
+            popUpSearch.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            popUpSearch.widthAnchor.constraint(equalToConstant: 250),
+            popUpSearch.heightAnchor.constraint(equalToConstant: 60),
+            widthPopup,
                                         
             maintempInfo.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             maintempInfo.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/3),
@@ -189,5 +211,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         collectionCell.weatherImage.image = self.forecastImage[indexPath.row]
         collectionCell.mainWeatherLabel.text = "\(self.forecastMainTemp[indexPath.row])°"
         return collectionCell
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.popUpSearch.searchBar.endEditing(true)
+        self.widthPopup.constant = -3
+        UIView.animate(withDuration: 1) {
+                                            
+            self.view.layoutIfNeeded()
+        }
+        self.popUpSearch.searchBar.text = ""
     }
 }

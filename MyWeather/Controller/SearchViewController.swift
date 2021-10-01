@@ -7,12 +7,20 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UISearchBarDelegate {
-
+class SearchViewController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource {
+    
+    let layoutForecast = UICollectionViewFlowLayout()
+    var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout.init())
     var apiWeather = WeatherAPI()
     let searchView = SearchOptionView()
     let otherView = OtherSearchOptionView()
     let scroll = UIScrollView()
+    var numberCells = Int()
+    var forecastMainTemp = [Int]()
+    var forecastDate = [String]()
+    var forecastDateInfo = [String]()
+    var forecastImageString = [String]()
+    var forecastImage = [UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +30,18 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     
     func constrain() {
         self.searchView.search.delegate = self
-        view.addConstrainedSubviews(searchView, scroll)
+        
+        layoutForecast.itemSize = CGSize(width: view.frame.width/5, height: 110)
+        layoutForecast.scrollDirection = .horizontal
+        layoutForecast.minimumLineSpacing = 0
+        
+        self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layoutForecast)
+        self.collectionView.isScrollEnabled = true
+        self.collectionView.backgroundColor = .clear
+        self.collectionView.register(SearchForecastCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
+        self.collectionView.dataSource = self
+        
+        view.addConstrainedSubviews(searchView, collectionView, scroll)
         scroll.addConstrainedSubviews(otherView)
         
         NSLayoutConstraint.activate([
@@ -32,7 +51,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
             searchView.widthAnchor.constraint(equalTo: view.widthAnchor),
             searchView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            scroll.topAnchor.constraint(equalTo: searchView.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
+            collectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: 110),
+            collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            scroll.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
             scroll.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scroll.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scroll.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -55,6 +79,25 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     
     func searchStart(city: String) {
         
+        let setImageForecastIcon:(UIImage) -> Void = { forecastIconImage in
+            self.forecastImage.append(forecastIconImage)
+        }
+        
+        let setForecastWeatherInfo:(ForecastList) -> Void = { forecastW in
+            self.numberCells = Int(forecastW.list.count)
+            
+            for index in 0..<forecastW.list.count {
+                self.forecastMainTemp.append(Int(forecastW.list[index].main.temp))
+                self.forecastDate.append(forecastTimeSet(convertTime: Double(forecastW.list[index].dt!)))
+                self.forecastDateInfo.append(forecastDateSet(convertTime: Double(forecastW.list[index].dt!)))
+                let forecastWeatherIcon = forecastW.list[index].weather[0].icon
+                self.apiWeather.weatherImageIcon(weatherIcon: forecastWeatherIcon, onCompletion: setImageForecastIcon)
+                print(self.forecastMainTemp)
+            }
+        }
+        
+        self.apiWeather.searchForecastWeatherInfo(cityName: city, onCompletion: setForecastWeatherInfo)
+        
         let cityDisplayName = city.replacingOccurrences(of: " ", with: "%20")
         let setImageWeatherIcon:(UIImage) -> Void = { iconWeatherImage in
             DispatchQueue.main.async {
@@ -71,6 +114,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
             }
             self.apiWeather.weatherCityInfo(city: cityDisplayName, onCompletion: setWeatherInfo)
         
+        viewDidLoad()
     }
     
     func weatherDisplay(weathers: WeatherResponse, cityName: String) {
@@ -114,15 +158,23 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searchView.search.text = ""
+        self.searchView.search.endEditing(true)
     }
 
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
-    {
-        if self.searchView.search.text == nil || self.searchView.search.text == ""
-                {
-                    searchBar.perform(#selector(self.resignFirstResponder), with: nil, afterDelay: 0.1)
-                }
-     }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return numberCells
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! SearchForecastCollectionViewCell
+        
+        collectionCell.dateInfo.text = "\(self.forecastDateInfo[indexPath.row])"
+        collectionCell.timeInfo.text = "\(self.forecastDate[indexPath.row])"
+        collectionCell.weatherImage.image = self.forecastImage[indexPath.row]
+        collectionCell.mainWeatherLabel.text = "\(self.forecastMainTemp[indexPath.row])°"
+        
+        return collectionCell
+    }
 }
 
 

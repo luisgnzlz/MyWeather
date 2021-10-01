@@ -59,6 +59,22 @@ final class WeatherAPI {
         }.resume()
     }
     
+    func searchForecastWeatherInfo(cityName: String, onCompletion: @escaping (ForecastList) -> Void) {
+        let urlDetials = "/data/2.5/forecast?q=\(cityName)&units=imperial&appid=\(API_Key)"
+        guard let url = URL(string: baseUrl + urlDetials) else { return }
+        session.dataTask(with: url) { (data, response, err) in
+            guard let data = data else { return }
+            do {
+                let forecastWeather = try
+                    JSONDecoder().decode(ForecastList.self, from: data)
+                print(forecastWeather)
+                onCompletion(forecastWeather)
+            } catch let jsonErr {
+                print(jsonErr)
+            }
+        }.resume()
+    }
+    
     func weatherCityInfo(city: String, onCompletion: @escaping (WeatherResponse) -> Void) {
         let urlDetails = "/data/2.5/weather?q=\(city)&units=imperial&appid=\(API_Key)"
         guard let url = URL(string: baseUrl + urlDetails) else { return }

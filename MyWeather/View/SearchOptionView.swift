@@ -43,7 +43,7 @@ class SearchOptionView: ProgramaticView, UISearchBarDelegate {
         
         search.autocorrectionType = .yes
         search.showsCancelButton = true
-        search.placeholder = "Quick Search"
+        search.placeholder = "Quick Search (Enter City Name)"
         search.backgroundImage = UIImage()
         
         weatherLabel.font = UIFont(name: "Charter-Roman", size: 70)
@@ -85,7 +85,7 @@ class SearchOptionView: ProgramaticView, UISearchBarDelegate {
             viewScroller.widthAnchor.constraint(equalToConstant: 50),
             viewScroller.heightAnchor.constraint(equalToConstant: 5),
             
-            search.topAnchor.constraint(equalTo: viewScroller.bottomAnchor, constant: 15),
+            search.topAnchor.constraint(equalTo: viewScroller.bottomAnchor, constant: 10),
             search.widthAnchor.constraint(equalTo: widthAnchor, constant: -10),
             search.heightAnchor.constraint(equalToConstant: 50),
             search.centerXAnchor.constraint(equalTo: centerXAnchor),
