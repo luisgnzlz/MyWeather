@@ -30,7 +30,7 @@ class MainTempInfo: ProgramaticView {
         settingsButton.tintColor = .white
         settingsButton.contentMode = .scaleAspectFill
         
-        searchButton.setBackgroundImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        searchButton.setBackgroundImage(UIImage(systemName: "plus.magnifyingglass"), for: .normal)
         searchButton.tintColor = .white
         searchButton.contentMode = .scaleAspectFill
         
