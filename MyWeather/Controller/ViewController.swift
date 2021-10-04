@@ -13,6 +13,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     
     var locationManager = CLLocationManager()
     let layoutForecast = UICollectionViewFlowLayout()
+    var longi = ""
+    var lat = ""
     var popUpSearch = SearchPopUp()
     var apiWeather = WeatherAPI()
     var maintempInfo = MainTempInfo()
@@ -30,6 +32,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = bgColor
+        
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
@@ -152,8 +155,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
         guard let locationValue : CLLocationCoordinate2D = manager.location?.coordinate else {
             return
                }
-        let lat = String(locationValue.latitude)
-        let longi = String(locationValue.longitude)
+        self.lat = String(locationValue.latitude)
+        self.longi = String(locationValue.longitude)
 
         CLGeocoder().reverseGeocodeLocation(locations[0]) { (placemark, error) in
             if error != nil {
@@ -169,9 +172,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
                     self.maintempInfo.weatherImg.image = iconWeatherImage
                     }
                 }
-                    let setImageForecastIcon:(UIImage) -> Void = { forecastIconImage in
-                        self.forecastImage.append(forecastIconImage)
-                    }
                            
             let setWeatherInfo:(WeatherResponse) -> Void = { currentWeather in
                 let weatherIcon = currentWeather.weather[0].icon
@@ -180,23 +180,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UICollectionV
             self.weatherDisplay(weathers: currentWeather, cityName: cityname, stateName: statename)
     }
         }
-                    let setForecastWeatherInfo:(ForecastList) -> Void = { forecastW in
-                        self.numberCells = Int(forecastW.list.count)
-                        
-                        for index in 0..<forecastW.list.count {
-                            self.forecastMainTemp.append(Int(forecastW.list[index].main.temp))
-                            self.forecastDate.append(forecastTimeSet(convertTime: Double(forecastW.list[index].dt!)))
-                            self.forecastDateInfo.append(forecastDateSet(convertTime: Double(forecastW.list[index].dt!)))
-                            let forecastWeatherIcon = forecastW.list[index].weather[0].icon
-                            self.apiWeather.weatherImageIcon(weatherIcon: forecastWeatherIcon, onCompletion: setImageForecastIcon)
-                            print(self.forecastMainTemp)
-                        }
-                    }
-                self.apiWeather.forecastWeatherInfo(longitude: longi, latitude: lat, onCompletion: setForecastWeatherInfo)
-                self.apiWeather.weatherInfo(longitude: longi, latitude: lat, onCompletion: setWeatherInfo)
+                    self.forecastPlacemnt()
+    
+                    self.apiWeather.weatherInfo(longitude: self.longi, latitude: self.lat, onCompletion: setWeatherInfo)
                 }
             }
         }
+    }
+    
+    func forecastPlacemnt() {
+        
+        let setImageForecastIcon:(UIImage) -> Void = { forecastIconImage in
+            self.forecastImage.append(forecastIconImage)
+        }
+        let setForecastWeatherInfo:(ForecastList) -> Void = { forecastW in
+            self.numberCells = Int(forecastW.list.count)
+            
+            for index in 0..<forecastW.list.count {
+                self.forecastMainTemp.append(Int(forecastW.list[index].main.temp))
+                self.forecastDate.append(forecastTimeSet(convertTime: Double(forecastW.list[index].dt!)))
+                self.forecastDateInfo.append(forecastDateSet(convertTime: Double(forecastW.list[index].dt!)))
+                let forecastWeatherIcon = forecastW.list[index].weather[0].icon
+                self.apiWeather.weatherImageIcon(weatherIcon: forecastWeatherIcon, onCompletion: setImageForecastIcon)
+                print(self.forecastMainTemp)
+            }
+        }
+        self.apiWeather.forecastWeatherInfo(longitude: self.longi, latitude: self.lat, onCompletion: setForecastWeatherInfo)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
